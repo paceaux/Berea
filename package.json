@@ -1,0 +1,23 @@
+{
+  "name": "bibleapi",
+  "version": "0.0.1",
+  "description": "Library for using scripture.api.bible",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "Library",
+    "API",
+    "Bible",
+    "Scripture"
+  ],
+  "author": "Frank M. Taylor (AKA Paceaux)",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1"
+  },
+  "devDependencies": {
+    "jest": "^27.0.1"
+  }
+}

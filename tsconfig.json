@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "./build",
+    "allowJs": true,
+    "target": "es2018",
+    "moduleResolution": "node"
+  },
+  "include": ["./src/**/*"],
+  "exclude": [
+      "tests",
+      "build",
+      "node_modules"
+  ]
+}
