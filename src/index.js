@@ -161,16 +161,7 @@ const Axios = require('axios');
  * @property {Object} previous
  */
 
-/**
- * enum for kinds of media for the bible
- * @readonly
- * @enum {string}
- */
 
-const BaseRoutes = new Map([
-	['text', 'bibles'],
-	['audio', 'audio-bibles']
-]);
 
 
 /**
@@ -179,7 +170,7 @@ const BaseRoutes = new Map([
  * @enum {string}
  */
 
-const GetParameters = new Map([
+const RequestParameters = new Map([
 	['language', 'language'],
 	['lang', 'language'],
 	['abbreviation', 'abbreviation'],
@@ -205,23 +196,52 @@ const GetParameters = new Map([
 	['orgId', 'use-org-id'],
 ]);
 
-
 class BibleApi {
 	/**
 	 * @param  {string} apikey
 	 * @param  {number|string} version=1
-	 * @param  {BibleTypes} medium='text'
+	 * @param  {BibleTypes} type='text'
 	 * @param  {} dependencies={Axios}
 	 */
 	constructor(apikey, version = 1, medium='text', dependencies = {Axios}) {
+		
+		/**
+		 * @type {string}
+		 * @public
+		 */		
 		this.apikey = apikey;
+
+		/**
+		 * @type {string}
+		 * @public
+		 */	
 		this.version = version;
+
+		/**
+		 * @type {string}
+		 * @private
+		 */	
 		this.medium = medium;
+
+		/**
+		 * @type {object}
+		 * @public
+		 */	
 		this.dependencies = dependencies;
 
+		/**
+		 * @type {object}
+		 * @public
+		 */
 		this.axios = BibleApi.getAxiosInstance(dependencies, apikey, version);
 	}
 
+	
+	/**
+	 * @param  {object} dependencies the dependencies object passed it, containing an Axios
+	 * @param  {string} apiKey
+	 * @param  {number} version
+	 */
 	static getAxiosInstance(dependencies, apiKey, version)  {
 		return dependencies.Axios.create({
 			baseURL: `https://api.scripture.api.bible/v${version}`,
@@ -231,24 +251,33 @@ class BibleApi {
 		});
 	}
 
-	static get BibleRoutes() {
-		return BaseRoutes;
+	/**
+	 * enum for kinds of media for the bible
+	 * @readonly
+	 * @enum {string}
+	 */
+
+	static BibleTypes = new Map([
+		['text', 'bibles'],
+		['audio', 'audio-bibles']
+	]);
+
+	static RequestParameters = RequestParameters;
+
+	get bibleType() {
+		return BibleApi.BibleTypes.get(this.medium);
 	}
 
-	static get GetParameters() {
-		return GetParameters;
-	}
 
-	get baseRoute() {
-		return BibleApi.BibleRoutes.get(this.medium);
-	}
-
+	/**
+	 * @param  {} params
+	 */
 	static hyphenateParameters(params) {
 		const newParams = {};
 
 		Object.entries(params).forEach(([k,v]) => {
-			if (BibleApi.GetParameters.has(k)) {
-				newParams[BibleApi.GetParameters.get(k)] = v;
+			if (BibleApi.RequestParameters.has(k)) {
+				newParams[BibleApi.RequestParameters.get(k)] = v;
 			}
 		});
 
