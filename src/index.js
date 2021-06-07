@@ -236,7 +236,7 @@ class BibleApi {
 		this.axios = BibleApi.getAxiosInstance(dependencies, apikey, version);
 	}
 
-	
+
 	/**
 	 * @param  {object} dependencies the dependencies object passed it, containing an Axios
 	 * @param  {string} apiKey
@@ -330,7 +330,7 @@ class BibleApi {
 		let result = null;
 
 		try {
-			const response = await axios.get('/bibles', {
+			const response = await axios.get(`/${this.bibleType}`, {
 				params: request
 			});
 			result = response.data.data;
@@ -353,7 +353,7 @@ class BibleApi {
 		let result = null;
 
 		try {
-			const response = await axios.get(`/bibles/${id}`);
+			const response = await axios.get(`/${this.bibleType}/${id}`);
 			result = response.data.data;
 		} catch (getError) {
 			console.log(getError);
@@ -381,7 +381,7 @@ class BibleApi {
 		}
 
 		try {
-			const response = await axios.get(`/bibles/${id}/books`, {
+			const response = await axios.get(`/${this.bibleType}/${id}/books`, {
 				params
 			});
 			result = response.data.data;
@@ -421,7 +421,7 @@ class BibleApi {
 
 
 		try {
-			const response = await axios.get(`/bibles/${id}/books/${bookId}`, {
+			const response = await axios.get(`/${this.bibleType}/${id}/books/${bookId}`, {
 				params
 			});
 			result = response.data.data;
@@ -459,7 +459,7 @@ class BibleApi {
 		}
 
 		try {
-			const response = await this.axios.get(`/bibles/${id}/books/${bookId}/chapters`,{
+			const response = await this.axios.get(`/${this.bibleType}/${id}/books/${bookId}/chapters`,{
 				params
 			});
 
@@ -496,7 +496,7 @@ class BibleApi {
 		}
 
 		try {
-			const response = await this.axios.get(`/bibles/${id}/chapters/${chapterId}`,{
+			const response = await this.axios.get(`/${this.bibleType}/${id}/chapters/${chapterId}`,{
 				params
 			});
 
@@ -535,7 +535,7 @@ class BibleApi {
 		}
 
 		try {
-			const response = await this.axios.get(`/bibles/${id}/passages/${passageId}`,{
+			const response = await this.axios.get(`/${this.bibleType}/${id}/passages/${passageId}`,{
 				params
 			});
 
@@ -573,7 +573,7 @@ class BibleApi {
 		}
 
 		try {
-			const response = await this.axios.get(`/bibles/${id}/chapters/${chapterId}/verses`,{
+			const response = await this.axios.get(`/${this.bibleType}/${id}/chapters/${chapterId}/verses`,{
 				params
 			});
 
@@ -605,7 +605,7 @@ class BibleApi {
 		}
 
 		try {
-			const response = await this.axios.get(`/bibles/${id}/verses/${verseId}`,{
+			const response = await this.axios.get(`/${this.bibleType}/${id}/verses/${verseId}`,{
 				params
 			});
 

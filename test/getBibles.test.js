@@ -49,3 +49,25 @@ describe('getBibleById', () => {
 
     });
 });
+describe('getBibleAudio', () => {
+    const api = new BibleApi('5ae573a324440896fabd2942943728a5', 1, 'audio');
+
+        it('it gets a list of audio bibles', async () => {
+        const result = await api.getBibles();
+
+        expect(result).toBeInstanceOf(Object);
+        expect(result.length).toBeGreaterThan(5);
+        expect(result[0]).toHaveProperty('type', 'audio');
+    });
+
+    it('it can get with a config, by language', async () => {
+        const [result] = await api.getBibles({
+            language: 'eng'
+        });
+
+        expect(result).toBeInstanceOf(Object);
+        expect(result).toHaveProperty('language');
+        expect(result.language).toHaveProperty('id', 'eng');
+        expect(result).toHaveProperty('type', 'audio');
+    });
+});
