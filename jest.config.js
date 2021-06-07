@@ -3,7 +3,7 @@ module.exports = {
     "(/test/.*|(\\.|/)(test|spec))\\.[jt]sx?$",
     "**/?(*.)+(spec|test).[tj]s?(x)"
   ],
-  "transform": {
-    "^.+\\.(ts|tsx)$": "ts-jest"
-  },
+  // "transform": {
+  //   "^.+\\.(ts|tsx)$": "ts-jest"
+  // },
 }
