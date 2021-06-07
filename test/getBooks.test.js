@@ -1,4 +1,4 @@
-const BibleApi = require('../index');
+const BibleApi = require('../src/bibleService');;
 
 describe('getBooks', () => {
     const api = new BibleApi('5ae573a324440896fabd2942943728a5', 1);
