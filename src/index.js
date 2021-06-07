@@ -53,6 +53,21 @@ const Axios = require('axios');
  * @property {boolean} [includeChapters=false] Boolean indicating if an array of chapter summaries should be included in the results. Defaults to false.
  */
 
+
+/**
+ * @typedef PassageRequestParam
+ * @property {string} id id of the Bible whose book to fetch
+ * @property {string} passageId id of the book to fetch
+ * @property {string} [contentType=html] html, json, text
+ * @property {boolean} [includeNotes] include footnotes in content
+ * @property {boolean} [includeTitles=true] include footnotes in content
+ * @property {boolean} [includeChapterNumbers=false] include chapter numbers in content
+ * @property {boolean} [includeVerseNumbers=false] include verse numbers in content
+ * @property {boolean} [includeVerseSpans=false] include spans that wrap verse numbers and verse text for bible content
+ * @property {Array<string>} [parallels] comma separated list of bibleIds
+ * @property {boolean} [useOrgId=false] Use the supplied id(s) to match the verseOrgId instead of verseId. Defaults to false.
+ */
+
 /**
  * @typedef Bible
  * @property {string} id
@@ -466,7 +481,7 @@ class BibleApi {
 
 	
 	/**
-	 * @param  {object|string} request
+	 * @param  {PassageRequestParam|string} request
 	 * @param  {string} passageIdStr
 	 *
 	 * @returns {Passage}
