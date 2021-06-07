@@ -121,6 +121,17 @@ const Axios = require('axios');
  */
 
 /**
+ * @typedef Passage
+ * @property {string} id
+ * @property {string} bibleId
+ * @property {string} orgId
+ * @property {string} content
+ * @property {string} reference 
+ * @property {number} verseCount
+ * @property {string} copyright
+ */
+
+/**
  * @typedef Verse
  * @property {string} id
  * @property {string} orgId
@@ -453,6 +464,13 @@ class BibleApi {
 		return result;
 	}
 
+	
+	/**
+	 * @param  {object|string} request
+	 * @param  {string} passageIdStr
+	 *
+	 * @returns {Passage}
+	 */
 	async getPassage(request, passageIdStr) {
 		let id;
 		let passageId;
