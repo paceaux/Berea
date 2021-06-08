@@ -197,6 +197,8 @@ const RequestParameters = new Map([
 ]);
 
 class BibleService {
+	_apikey = '';
+
 	/**
 	 * @param  {string} apikey
 	 * @param  {number|string} version=1
@@ -204,12 +206,6 @@ class BibleService {
 	 * @param  {} dependencies={Axios}
 	 */
 	constructor(apikey, version = 1, medium='text', dependencies = {Axios}) {
-		
-		/**
-		 * @type {string}
-		 * @public
-		 */		
-		this.apikey = apikey;
 
 		/**
 		 * @type {string}
@@ -229,6 +225,14 @@ class BibleService {
 		 */	
 		this.dependencies = dependencies;
 
+
+		/**
+		 * @type {string}
+		 * @public
+		 */		
+		this.apikey = apikey;
+	
+
 		/**
 		 * @type {object}
 		 * @public
@@ -236,6 +240,15 @@ class BibleService {
 		this.axios = BibleService.getAxiosInstance(dependencies, apikey, version);
 	}
 
+
+	get apikey() {
+		return this._apikey;
+	}
+
+	set apikey(key) {
+		this._apikey = key;
+		this.axios = BibleService.getAxiosInstance(this.dependencies, key, this.version);
+	}
 
 	/**
 	 * @param  {object} dependencies the dependencies object passed it, containing an Axios
