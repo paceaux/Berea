@@ -1,4 +1,4 @@
-const BibleApi = require('../src/bibleService');;
+const BibleApi = require('../../src/bibleService');
 
 
 describe('getPassage', () => {
