@@ -1,5 +1,8 @@
 const BibleEntity = require('./entity');
+const Book = require('./book');
+
 class  Bible extends BibleEntity {
+    books = [];
 
     /**
      * @param  {object|string} data full data object returned from api, or the id of a bible
@@ -15,12 +18,17 @@ class  Bible extends BibleEntity {
         this.data = data;
     }
 
+
+    /** Gets all of the books associated with the Bible
+     * @param  {BooksRequestParam} params
+     */
     async getBooks(params) {
         const request = {...params, id : this.id };
         let result = null;
         
         try {
-            result = await this.bibleService.getBooks(request);
+            const books = await this.bibleService.getBooks(request);
+            result = books.map((book) => new Book(book));
         } catch (getError) {
             console.log(getError);
             result = error;
@@ -28,12 +36,29 @@ class  Bible extends BibleEntity {
         return result;
     }
 
+
+    /**Gets a book from the Bible
+     * @param  {BookRequestParam|string} params either an object with id or bookId, or a string that is the bookId
+     */
     async getBook(params) {
-        const request = {...params, id : this.id };
         let result = null;
+        const request = { id: this.id };
+        if (typeof params === 'object') {
+            let temp = {...params};
+            if (temp.id) {
+                temp.bookId = temp.id;
+                delete temp.id;
+            }
+            Object.assign(request, temp);
+        }
+
+        if (typeof params === 'string') {
+            request.bookId = params;
+        }
         
         try {
             result = await this.bibleService.getBook(request);
+            result = new Book(result);
         } catch (getError) {
             console.log(getError);
             result = error;
@@ -43,8 +68,20 @@ class  Bible extends BibleEntity {
 
 
     async getChapter(params) {
-        const request = {...params, id : this.id };
         let result = null;
+        const request = { id: this.id };
+        if (typeof params === 'object') {
+            let temp = {...params};
+            if (temp.id) {
+                temp.chapterId = temp.id;
+                delete temp.id;
+            }
+            Object.assign(request, temp);
+        }
+
+        if (typeof params === 'string') {
+            request.chapterId = params;
+        }
         
         try {
             result = await this.bibleService.getChapter(request);

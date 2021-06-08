@@ -1,5 +1,6 @@
 const BibleService = require('../../src/bibleService');
 const Bible = require('../../src/models/bible');
+const Book = require('../../src/models/book');
 
 const service = new BibleService('5ae573a324440896fabd2942943728a5', 1);
 
@@ -105,8 +106,37 @@ describe('Model: Bible', () => {
             const ASV = new Bible('06125adad2d5898a-01', service);
             const books = await ASV.getBooks();
 
-            console.log(books);
             expect(books).toBeInstanceOf(Array);
+            expect(books.length).toBeGreaterThan(50);
+        });
+        it('the array of books are all of the type Book ', async () => {
+            const ASV = new Bible('06125adad2d5898a-01', service);
+            const books = await ASV.getBooks();
+
+            expect(books).toBeInstanceOf(Array);
+            expect(books.length).toBeGreaterThan(50);
+            expect(books[0]).toBeInstanceOf(Book);
+        });
+        describe('getBook', () => {
+
+            it('gets a single book by string', async () => {
+                const ASV = new Bible('06125adad2d5898a-01', service);
+                const book = await ASV.getBook('GEN');
+                
+                expect(book).toBeInstanceOf(Book);
+            });
+            it('gets a single book by object with bookId', async () => {
+                const ASV = new Bible('06125adad2d5898a-01', service);
+                const book = await ASV.getBook({bookId: 'GEN'});
+                
+                expect(book).toBeInstanceOf(Book);
+            });
+            it('gets a single book by object with id', async () => {
+                const ASV = new Bible('06125adad2d5898a-01', service);
+                const book = await ASV.getBook({id: 'GEN'});
+                
+                expect(book).toBeInstanceOf(Book);
+            });
         });
     });
 });
