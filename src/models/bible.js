@@ -14,7 +14,9 @@ class  Bible extends BibleEntity {
     }
 
     async refreshData() {
-        const data = await this.bibleService.getBible();
+        const data = await this.bibleService.getBible(this.id);
+        const books = await this.getBooks();
+        this.books.push(...books)
         this.data = data;
     }
 

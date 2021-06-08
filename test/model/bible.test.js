@@ -101,6 +101,15 @@ describe('Model: Bible', () => {
 
         
     });
+    describe('refreshData', () => {
+        it(' will populate data', async () => {
+            const ASV = new Bible('06125adad2d5898a-01', service);
+
+            await ASV.refreshData();
+            expect(ASV.data).toHaveProperty('language');
+            expect(ASV.books.length).toBeGreaterThan(50);
+        });
+    });
     describe('getBooks', () => {
         it('gets an array of books', async () => {
             const ASV = new Bible('06125adad2d5898a-01', service);
