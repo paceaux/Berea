@@ -1,5 +1,6 @@
 const BibleEntity = require('./entity');
 const Book = require('./book');
+const Chapter = require('./chapter');
 
 class  Bible extends BibleEntity {
     books = [];
@@ -87,6 +88,7 @@ class  Bible extends BibleEntity {
         
         try {
             result = await this.bibleService.getChapter(request);
+            result = new Chapter(result);
         } catch (getError) {
             console.log(getError);
             result = error;
@@ -95,24 +97,24 @@ class  Bible extends BibleEntity {
     }
 
     async getPassage(params) {
-        const request = {...params, id : this.id };
         let result = null;
+        const request = { id: this.id };
+        if (typeof params === 'object') {
+            let temp = {...params};
+            if (temp.id) {
+                temp.chapterId = temp.id;
+                delete temp.id;
+            }
+            Object.assign(request, temp);
+        }
+
+        if (typeof params === 'string') {
+            request.chapterId = params;
+        }
+        
         
         try {
             result = await this.bibleService.getPassage(request);
-        } catch (getError) {
-            console.log(getError);
-            result = error;
-        }
-        return result;
-    }
-
-    async getPassage(params) {
-        const request = {...params, id : this.id };
-        let result = null;
-        
-        try {
-            result = await this.bibleService.getVerse(request);
         } catch (getError) {
             console.log(getError);
             result = error;
