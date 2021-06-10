@@ -2,6 +2,7 @@ const BibleService = require('../../src/bibleService');
 const Bible = require('../../src/models/bible');
 const Book = require('../../src/models/book');
 const Chapter = require('../../src/models/chapter');
+const Passage = require('../../src/models/passage');
 
 const service = new BibleService('5ae573a324440896fabd2942943728a5', 1);
 
@@ -167,6 +168,27 @@ describe('Model: Bible', () => {
                 const chapter = await ASV.getChapter({id: 'GEN.1'});
                 
                 expect(chapter).toBeInstanceOf(Chapter);
+            });
+        });
+        describe('getPassage', () => {
+
+            it('gets a single passage by string', async () => {
+                const ASV = new Bible('06125adad2d5898a-01', service);
+                const passage = await ASV.getPassage('GEN.1.1-GEN.1.20');
+                
+                expect(passage).toBeInstanceOf(Passage);
+            });
+            it('gets a single passage by object with passageid', async () => {
+                const ASV = new Bible('06125adad2d5898a-01', service);
+                const passage = await ASV.getPassage({passageId: 'GEN.1.1-GEN.1.20'});
+                
+                expect(passage).toBeInstanceOf(Passage);
+            });
+            it('gets a single passage by object with id', async () => {
+                const ASV = new Bible('06125adad2d5898a-01', service);
+                const passage = await ASV.getPassage({id: 'GEN.1.1-GEN.1.20'});
+                
+                expect(passage).toBeInstanceOf(Passage);
             });
         });
     });

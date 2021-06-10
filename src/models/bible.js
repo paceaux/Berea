@@ -1,8 +1,15 @@
 const BibleEntity = require('./entity');
 const Book = require('./book');
 const Chapter = require('./chapter');
+const Passage = require('./passage');
 
 class  Bible extends BibleEntity {
+
+    /**
+     * All books in the bible. populated after running refreshData()
+     * @type {Array<string>}
+     * @public
+     */
     books = [];
 
     /**
@@ -13,7 +20,9 @@ class  Bible extends BibleEntity {
         super(data, bibleService);
 
     }
-
+    /**
+     * Retrieves data from API and populates data property and books property.
+     */
     async refreshData() {
         const data = await this.bibleService.getBible(this.id);
         const books = await this.getBooks();
@@ -69,7 +78,9 @@ class  Bible extends BibleEntity {
         return result;
     }
 
-
+    /** Gets a chapter by Id from the Bible
+     * @param  {ChapterRequestParam|string} params
+     */
     async getChapter(params) {
         let result = null;
         const request = { id: this.id };
@@ -102,19 +113,20 @@ class  Bible extends BibleEntity {
         if (typeof params === 'object') {
             let temp = {...params};
             if (temp.id) {
-                temp.chapterId = temp.id;
+                temp.passageId = temp.id;
                 delete temp.id;
             }
             Object.assign(request, temp);
         }
 
         if (typeof params === 'string') {
-            request.chapterId = params;
+            request.passageId = params;
         }
         
         
         try {
             result = await this.bibleService.getPassage(request);
+            result = new Passage(result, this.bibleService);
         } catch (getError) {
             console.log(getError);
             result = error;
