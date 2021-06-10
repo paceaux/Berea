@@ -2,6 +2,7 @@ const BibleEntity = require('./entity');
 const Book = require('./book');
 const Chapter = require('./chapter');
 const Passage = require('./passage');
+const Verse = require('./verse');
 
 class  Bible extends BibleEntity {
 
@@ -107,6 +108,21 @@ class  Bible extends BibleEntity {
         try {
             result = await this.bibleService.getPassage(request);
             result = new Passage(result, this.bibleService);
+        } catch (getError) {
+            console.log(getError);
+            result = error;
+        }
+        return result;
+    }
+
+
+    async getVerse(params) {
+        let result = null;
+        const request = this.prepareRequest(params, 'verseId');
+
+        try {
+            result = await this.bibleService.getVerse(request);
+            result = new Verse(result, this.bibleService);
         } catch (getError) {
             console.log(getError);
             result = error;
