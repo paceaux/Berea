@@ -49,24 +49,29 @@ class  Bible extends BibleEntity {
     }
 
 
-    /**Gets a book from the Bible
-     * @param  {BookRequestParam|string} params either an object with id or bookId, or a string that is the bookId
-     */
-    async getBook(params) {
-        let result = null;
+    prepareRequest(params, requestId) {
         const request = { id: this.id };
         if (typeof params === 'object') {
             let temp = {...params};
             if (temp.id) {
-                temp.bookId = temp.id;
+                temp[requestId] = temp.id;
                 delete temp.id;
             }
             Object.assign(request, temp);
         }
 
         if (typeof params === 'string') {
-            request.bookId = params;
+            request[requestId] = params;
         }
+        return request;
+    }
+
+    /**Gets a book from the Bible
+     * @param  {BookRequestParam|string} params either an object with id or bookId, or a string that is the bookId
+     */
+    async getBook(params) {
+        let result = null;
+        const request = this.prepareRequest(params, 'bookId');
         
         try {
             result = await this.bibleService.getBook(request);
@@ -83,19 +88,7 @@ class  Bible extends BibleEntity {
      */
     async getChapter(params) {
         let result = null;
-        const request = { id: this.id };
-        if (typeof params === 'object') {
-            let temp = {...params};
-            if (temp.id) {
-                temp.chapterId = temp.id;
-                delete temp.id;
-            }
-            Object.assign(request, temp);
-        }
-
-        if (typeof params === 'string') {
-            request.chapterId = params;
-        }
+        const request = this.prepareRequest(params, 'chapterId');
         
         try {
             result = await this.bibleService.getChapter(request);
@@ -109,21 +102,8 @@ class  Bible extends BibleEntity {
 
     async getPassage(params) {
         let result = null;
-        const request = { id: this.id };
-        if (typeof params === 'object') {
-            let temp = {...params};
-            if (temp.id) {
-                temp.passageId = temp.id;
-                delete temp.id;
-            }
-            Object.assign(request, temp);
-        }
+        const request = this.prepareRequest(params, 'passageId');
 
-        if (typeof params === 'string') {
-            request.passageId = params;
-        }
-        
-        
         try {
             result = await this.bibleService.getPassage(request);
             result = new Passage(result, this.bibleService);
