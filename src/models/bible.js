@@ -1,10 +1,10 @@
-const BibleEntity = require('./entity');
+const Entity = require('./entity');
 const Book = require('./book');
 const Chapter = require('./chapter');
 const Passage = require('./passage');
 const Verse = require('./verse');
 
-class  Bible extends BibleEntity {
+class  Bible extends Entity {
 
     /**
      * All books in the bible. populated after running refreshData()
@@ -41,10 +41,12 @@ class  Bible extends BibleEntity {
         
         try {
             const books = await this.bibleService.getBooks(request);
-            result = books.map((book) => new Book(book));
+            result = books.map((book) => {
+                return new Book(book, this);
+            });
         } catch (getError) {
             console.log(getError);
-            result = error;
+            result = getError;
         }
         return result;
     }
@@ -75,11 +77,11 @@ class  Bible extends BibleEntity {
         const request = this.prepareRequest(params, 'bookId');
         
         try {
-            result = await this.bibleService.getBook(request);
-            result = new Book(result);
+            const data = await this.bibleService.getBook(request);
+            result = new Book(data, this);
         } catch (getError) {
             console.log(getError);
-            result = error;
+            result = getError;
         }
         return result;
     }
@@ -92,11 +94,11 @@ class  Bible extends BibleEntity {
         const request = this.prepareRequest(params, 'chapterId');
         
         try {
-            result = await this.bibleService.getChapter(request);
-            result = new Chapter(result);
+            const data = await this.bibleService.getChapter(request);
+            result = new Chapter(data, this);
         } catch (getError) {
             console.log(getError);
-            result = error;
+            result = getError;
         }
         return result;
     }
@@ -106,11 +108,11 @@ class  Bible extends BibleEntity {
         const request = this.prepareRequest(params, 'passageId');
 
         try {
-            result = await this.bibleService.getPassage(request);
-            result = new Passage(result, this.bibleService);
+            const data = await this.bibleService.getPassage(request);
+            result = new Passage(data, this);
         } catch (getError) {
             console.log(getError);
-            result = error;
+            result = getError;
         }
         return result;
     }
@@ -121,8 +123,8 @@ class  Bible extends BibleEntity {
         const request = this.prepareRequest(params, 'verseId');
 
         try {
-            result = await this.bibleService.getVerse(request);
-            result = new Verse(result, this.bibleService);
+            const data = await this.bibleService.getVerse(request);
+            result = new Verse(data, this);
         } catch (getError) {
             console.log(getError);
             result = error;

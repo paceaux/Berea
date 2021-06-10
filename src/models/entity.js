@@ -1,6 +1,6 @@
 const BibleService = require('../bibleService');
 
-class BibleEntity {
+class Entity {
 
     id = '';
     data = {};
@@ -31,4 +31,4 @@ class BibleEntity {
     }
 }
 
-module.exports = BibleEntity;
+module.exports = Entity;

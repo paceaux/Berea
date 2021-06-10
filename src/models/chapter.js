@@ -1,9 +1,9 @@
-const BibleEntity = require('./entity');
+const BibleEntity = require('./bible-entity');
 
 
 class Chapter extends BibleEntity {
-    constructor(data, bibleService) {
-        super(data, bibleService);
+    constructor(data, bible) {
+        super(data, bible);
 
     }
     get name() {

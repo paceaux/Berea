@@ -129,89 +129,89 @@ describe('Model: Bible', () => {
             expect(books.length).toBeGreaterThan(50);
             expect(books[0]).toBeInstanceOf(Book);
         });
-        describe('getBook', () => {
+    });
+    describe('getBook', () => {
 
-            it('gets a single book by string', async () => {
-                const ASV = new Bible('06125adad2d5898a-01', service);
-                const book = await ASV.getBook('GEN');
-                
-                expect(book).toBeInstanceOf(Book);
-            });
-            it('gets a single book by object with bookId', async () => {
-                const ASV = new Bible('06125adad2d5898a-01', service);
-                const book = await ASV.getBook({bookId: 'GEN'});
-                
-                expect(book).toBeInstanceOf(Book);
-            });
-            it('gets a single book by object with id', async () => {
-                const ASV = new Bible('06125adad2d5898a-01', service);
-                const book = await ASV.getBook({id: 'GEN'});
-                
-                expect(book).toBeInstanceOf(Book);
-            });
+        it('gets a single book by string', async () => {
+            const ASV = new Bible('06125adad2d5898a-01', service);
+            const book = await ASV.getBook('GEN');
+            
+            expect(book).toBeInstanceOf(Book);
         });
-        describe('getChapter', () => {
-
-            it('gets a single chapter by string', async () => {
-                const ASV = new Bible('06125adad2d5898a-01', service);
-                const chapter = await ASV.getChapter('GEN.1');
-                
-                expect(chapter).toBeInstanceOf(Chapter);
-            });
-            it('gets a single chapter by object with chapterId', async () => {
-                const ASV = new Bible('06125adad2d5898a-01', service);
-                const chapter = await ASV.getChapter({chapterId: 'GEN.1'});
-                
-                expect(chapter).toBeInstanceOf(Chapter);
-            });
-            it('gets a single chapter by object with id', async () => {
-                const ASV = new Bible('06125adad2d5898a-01', service);
-                const chapter = await ASV.getChapter({id: 'GEN.1'});
-                
-                expect(chapter).toBeInstanceOf(Chapter);
-            });
+        it('gets a single book by object with bookId', async () => {
+            const ASV = new Bible('06125adad2d5898a-01', service);
+            const book = await ASV.getBook({bookId: 'GEN'});
+            
+            expect(book).toBeInstanceOf(Book);
         });
-        describe('getPassage', () => {
-
-            it('gets a single passage by string', async () => {
-                const ASV = new Bible('06125adad2d5898a-01', service);
-                const passage = await ASV.getPassage('GEN.1.1-GEN.1.20');
-                
-                expect(passage).toBeInstanceOf(Passage);
-            });
-            it('gets a single passage by object with passageid', async () => {
-                const ASV = new Bible('06125adad2d5898a-01', service);
-                const passage = await ASV.getPassage({passageId: 'GEN.1.1-GEN.1.20'});
-                
-                expect(passage).toBeInstanceOf(Passage);
-            });
-            it('gets a single passage by object with id', async () => {
-                const ASV = new Bible('06125adad2d5898a-01', service);
-                const passage = await ASV.getPassage({id: 'GEN.1.1-GEN.1.20'});
-                
-                expect(passage).toBeInstanceOf(Passage);
-            });
+        it('gets a single book by object with id', async () => {
+            const ASV = new Bible('06125adad2d5898a-01', service);
+            const book = await ASV.getBook({id: 'GEN'});
+            
+            expect(book).toBeInstanceOf(Book);
         });
-        describe('getVerse', () => {
+    });
+    describe('getChapter', () => {
 
-            it('gets a single passage by string', async () => {
-                const ASV = new Bible('06125adad2d5898a-01', service);
-                const verse = await ASV.getVerse('GEN.1.1');
-                
-                expect(verse).toBeInstanceOf(Verse);
-            });
-            it('gets a single passage by object with passageId', async () => {
-                const ASV = new Bible('06125adad2d5898a-01', service);
-                const verse = await ASV.getVerse({verseId: 'GEN.1.1'});
-                
-                expect(verse).toBeInstanceOf(Verse);
-            });
-            it('gets a single passage by object with id', async () => {
-                const ASV = new Bible('06125adad2d5898a-01', service);
-                const verse = await ASV.getVerse({id: 'GEN.1.1'});
-                
-                expect(verse).toBeInstanceOf(Verse);
-            });
+        it('gets a single chapter by string', async () => {
+            const ASV = new Bible('06125adad2d5898a-01', service);
+            const chapter = await ASV.getChapter('GEN.1');
+            
+            expect(chapter).toBeInstanceOf(Chapter);
+        });
+        it('gets a single chapter by object with chapterId', async () => {
+            const ASV = new Bible('06125adad2d5898a-01', service);
+            const chapter = await ASV.getChapter({chapterId: 'GEN.1'});
+            
+            expect(chapter).toBeInstanceOf(Chapter);
+        });
+        it('gets a single chapter by object with id', async () => {
+            const ASV = new Bible('06125adad2d5898a-01', service);
+            const chapter = await ASV.getChapter({id: 'GEN.1'});
+            
+            expect(chapter).toBeInstanceOf(Chapter);
+        });
+    });
+    describe('getPassage', () => {
+
+        it('gets a single passage by string', async () => {
+            const ASV = new Bible('06125adad2d5898a-01', service);
+            const passage = await ASV.getPassage('GEN.1.1-GEN.1.20');
+            
+            expect(passage).toBeInstanceOf(Passage);
+        });
+        it('gets a single passage by object with passageid', async () => {
+            const ASV = new Bible('06125adad2d5898a-01', service);
+            const passage = await ASV.getPassage({passageId: 'GEN.1.1-GEN.1.20'});
+            
+            expect(passage).toBeInstanceOf(Passage);
+        });
+        it('gets a single passage by object with id', async () => {
+            const ASV = new Bible('06125adad2d5898a-01', service);
+            const passage = await ASV.getPassage({id: 'GEN.1.1-GEN.1.20'});
+            
+            expect(passage).toBeInstanceOf(Passage);
+        });
+    });
+    describe('getVerse', () => {
+
+        it('gets a single passage by string', async () => {
+            const ASV = new Bible('06125adad2d5898a-01', service);
+            const verse = await ASV.getVerse('GEN.1.1');
+            
+            expect(verse).toBeInstanceOf(Verse);
+        });
+        it('gets a single passage by object with passageId', async () => {
+            const ASV = new Bible('06125adad2d5898a-01', service);
+            const verse = await ASV.getVerse({verseId: 'GEN.1.1'});
+            
+            expect(verse).toBeInstanceOf(Verse);
+        });
+        it('gets a single passage by object with id', async () => {
+            const ASV = new Bible('06125adad2d5898a-01', service);
+            const verse = await ASV.getVerse({id: 'GEN.1.1'});
+            
+            expect(verse).toBeInstanceOf(Verse);
         });
     });
 });
