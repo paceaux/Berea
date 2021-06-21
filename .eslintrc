@@ -14,7 +14,8 @@
         "test" : true,
         "expect": true,
         "beforeAll": true,
-        "afterAll": true
+        "afterAll": true,
+        "it": true
     },
     "rules": {
     }
