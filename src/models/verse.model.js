@@ -5,14 +5,6 @@ const Chapter = require('./chapter.model');
  * @type {import('../bibleService').Verse}
  */
 class Verse extends BibleEntity {
-  /**
-     * @param  {Object} data
-     * @param  {import('../bibleService').Bible} bible
-     */
-  constructor(data, bible) {
-    super(data, bible);
-  }
-
   /** Name of book and chapter, or undefined if data not refreshed
      * @type {string|undefined}
      */
@@ -40,9 +32,9 @@ class Verse extends BibleEntity {
      * @type {number}
      */
   get number() {
-    const [book, chapterNum, verseNum] = this.id.split('.');
+    const [, , verseNum] = this.id.split('.');
     const number = parseInt(verseNum, 10);
-    return isNaN(number) ? 0 : number;
+    return Number.isNaN(number) ? 0 : number;
   }
 
   get chapter() {
@@ -108,7 +100,7 @@ class Verse extends BibleEntity {
     try {
       await verse.refreshData();
     } catch (getVerseError) {
-      console.error(getChapterError);
+      console.error(getVerseError);
     }
 
     return verse;

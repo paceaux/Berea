@@ -4,14 +4,6 @@ const BibleEntity = require('./bible-entity.model');
  * @type {import('../bibleService').Chapter}
  */
 class Chapter extends BibleEntity {
-  /**
-     * @param  {Object} data
-     * @param  {import('../bibleService').Bible} bible
-     */
-  constructor(data, bible) {
-    super(data, bible);
-  }
-
   /** Name of book and chapter, or undefined if data not refreshed
      * @type {string|undefined}
      */
@@ -32,7 +24,7 @@ class Chapter extends BibleEntity {
   get number() {
     const strNumber = this.data.number || this.id.split('.')[1];
     const number = parseInt(strNumber, 10);
-    return isNaN(number) ? 0 : number;
+    return Number.isNaN(number) ? 0 : number;
   }
 
   /** Trimmed raw content from API if data has been refreshed or loaded
@@ -79,7 +71,6 @@ class Chapter extends BibleEntity {
     const { data: { previous } } = this;
 
     if (previous && previous.id) {
-      const { number, bookId } = previous;
       chapter = new Chapter(previous.id, this.bible);
     }
     return chapter;
@@ -93,7 +84,6 @@ class Chapter extends BibleEntity {
     const { data: { next } } = this;
 
     if (next && next.id) {
-      const { number, bookId } = next;
       chapter = new Chapter(next.id, this.bible);
     }
     return chapter;

@@ -2,16 +2,13 @@ const BibleEntity = require('./bible-entity.model');
 const Chapter = require('./chapter.model');
 
 class Passage extends BibleEntity {
-  constructor(data, bible) {
-    super(data, bible);
-  }
-
   get chapters() {
     const { chapterIds } = this.data;
     const chapters = [];
 
     if (chapterIds && chapterIds.length) {
-      const chapterObjects = chapterIds.map((chapterId) => new Chapter(chapterId, this.bibleService));
+      const chapterObjects = chapterIds
+        .map((chapterId) => new Chapter(chapterId, this.bibleService));
       chapters.push(...chapterObjects);
     }
     return chapters;
