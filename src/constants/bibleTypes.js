@@ -5,8 +5,8 @@
  */
 
 const BibleTypes = new Map([
-    ['text', 'bibles'],
-    ['audio', 'audio-bibles']
+  ['text', 'bibles'],
+  ['audio', 'audio-bibles'],
 ]);
 
 module.exports = BibleTypes;

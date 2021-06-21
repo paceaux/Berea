@@ -1,3 +1,3 @@
 const BibleService = require('./bibleService');
 
-module.exports = { BibleService }
+module.exports = { BibleService };
