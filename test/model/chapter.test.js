@@ -47,7 +47,7 @@ describe('Model: Chapter', () => {
                 expect(chapter).toHaveProperty('verseCount', 0);
             }); 
             it('has a content', () => {
-                expect(chapter).toHaveProperty('content', {});
+                expect(chapter).toHaveProperty('content', '');
             }); 
         });
     });
@@ -73,20 +73,48 @@ describe('Model: Chapter', () => {
 
         });
     });
-    describe.skip('getChapters', () => {
+    describe('verseList', () => {
         it(' will get an array', async () => {
-            const chapter = new Chapter(bookMock, bible);
+            const chapter = new Chapter('GEN.1', bible);
 
-            const chapters = await chapter.getChapters();
-            expect(chapters).toBeInstanceOf(Array);
-            expect(chapters.length).toBeGreaterThan(10);
-        });
-        it(' will get an array of Chapters', async () => {
-            const book = new Chapter(bookMock, bible);
-
-            const chapters = await book.getChapters();
-            expect(chapters[0]).toBeInstanceOf(Chapter);
-
+            await chapter.refreshData();
+            expect(chapter.verseList).toBeInstanceOf(Array);
+            expect(typeof chapter.verseList[0]).toBe('string');
         });
     });
+    describe('prev and next', () => {
+        it('has empty prev and next at start', () => {
+            const chapter = new Chapter('GEN.1', bible);
+            expect(chapter.previousChapter).toBe(null);
+            expect(chapter.nextChapter).toBe(null);
+        });
+        it('When refreshed, prev/next are of type Chapter', async () => {
+            const chapter = new Chapter('GEN.1', bible);
+
+            await chapter.refreshData();
+
+            expect(chapter.previousChapter).toBeInstanceOf(Chapter);
+            expect(chapter.nextChapter).toBeInstanceOf(Chapter);
+        });
+        it('gets full data with getNext', async () => {
+            const chapter = new Chapter('GEN.1', bible);
+
+            await chapter.refreshData();
+
+            const next = await chapter.getNext();
+
+            expect(next.content).toBeTruthy();
+            expect(next.verseCount).toBeGreaterThan(0);
+        });
+        it('gets full data with getPrevious', async () => {
+            const chapter = new Chapter('GEN.2', bible);
+
+            await chapter.refreshData();
+
+            const previous = await chapter.getPrevious();
+
+            expect(previous.content).toBeTruthy();
+            expect(previous.verseCount).toBeGreaterThan(0);
+        });
+    })
 });
