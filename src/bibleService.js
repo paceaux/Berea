@@ -497,14 +497,14 @@ class BibleService {
 
 		if (typeof request === 'string') {
 			if (!chapterIdStr) throw new Error('bibleId provided as string without chapterId as second parameter');
-			chapterId = chapterIdStr.toUpperCase();
+			chapterId = chapterIdStr.toLowerCase();
 			id = request;
 		}
 
 		if (typeof request === 'object') {
 			const temp = BibleService.getRoutesAndParamFromRequest(request);
 			id = temp.id;
-			chapterId = temp.chapterId;
+			chapterId = temp.chapterId.toLowerCase();
 			params = temp.params;
 		}
 
