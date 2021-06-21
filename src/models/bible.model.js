@@ -1,8 +1,8 @@
-const Entity = require('./entity');
-const Book = require('./book');
-const Chapter = require('./chapter');
-const Passage = require('./passage');
-const Verse = require('./verse');
+const Entity = require('./entity.model');
+const Book = require('./book.model');
+const Chapter = require('./chapter.model');
+const Passage = require('./passage.model');
+const Verse = require('./verse.model');
 
 class  Bible extends Entity {
 

@@ -1,4 +1,4 @@
-const BibleEntity = require('./bible-entity');
+const BibleEntity = require('./bible-entity.model');
 
 /**
  * @type {import('../bibleService').Chapter}

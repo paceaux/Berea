@@ -1,5 +1,5 @@
-const Entity = require('./entity');
-const Bible = require('./bible');
+const Entity = require('./entity.model');
+const Bible = require('./bible.model');
 
 class BibleEntity extends Entity {
     bible = null;

@@ -1,6 +1,6 @@
 const BibleService = require('../../src/bibleService');
-const Bible = require('../../src/models/bible');
-const Chapter = require('../../src/models/chapter');
+const Bible = require('../../src/models/bible.model');
+const Chapter = require('../../src/models/chapter.model');
 
 
 const service = new BibleService('5ae573a324440896fabd2942943728a5', 1);
