@@ -8,7 +8,7 @@ const bible = new Bible('06125adad2d5898a-01', service);
 const chapterMock = {
         "id": "GEN.1",
         "bookId": "GEN",
-        "number": "1",
+        "number": 1,
         "reference": "Genesis 1",
 };
 
@@ -72,6 +72,12 @@ describe('Model: Chapter', () => {
             expect(chapter.data).toHaveProperty('verseCount');
 
         });
+        it('verseCount length matches length of parsed Verses', async () => {
+            const chapter = new Chapter('GEN.1', bible);
+
+            await chapter.refreshData();
+            expect(chapter.verseCount).toEqual(chapter.verseList.length);
+        });
     });
     describe('verseList', () => {
         it(' will get an array', async () => {
@@ -116,5 +122,25 @@ describe('Model: Chapter', () => {
             expect(previous.content).toBeTruthy();
             expect(previous.verseCount).toBeGreaterThan(0);
         });
-    })
+    });
+    describe('intro edge cases', () => {
+        it('Intro chapter has a number of 0', async ()=> {
+            const chapter = new Chapter('GEN.intro', bible);
+            await chapter.refreshData();
+            expect(chapter.number).toEqual(0);
+        });
+
+        it('intro chapter has verseList and verseCount of 0', async ()=> {
+            const chapter = new Chapter('GEN.intro', bible);
+            await chapter.refreshData();
+            expect(chapter.verseList.length).toEqual(0);
+            expect(chapter.verseCount).toEqual(0);
+        });
+        it('intro chapter', async ()=> {
+            const chapter = new Chapter('GEN.intro', bible);
+            await chapter.refreshData();
+            expect(chapter.verseList.length).toEqual(0);
+            expect(chapter.verseCount).toEqual(0);
+        });
+    });
 });

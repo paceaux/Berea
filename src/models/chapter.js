@@ -1,32 +1,66 @@
 const BibleEntity = require('./bible-entity');
 
-
+/**
+ * @type {import('../bibleService').Chapter}
+ */
 class Chapter extends BibleEntity {
 
+    /**
+     * @param  {Object} data
+     * @param  {import('../bibleService').Bible} bible
+     */
     constructor(data, bible) {
         super(data, bible);
 
     }
+
+    /** Name of book and chapter, or undefined if data not refreshed
+     * @type {string|undefined} 
+     */
     get name() {
         return this.data.reference;
     }
 
+    /** id for the book which contains this chapter
+     * @type {string}
+     */
     get bookId() {
         return this.data.bookId || this.id.split('.')[0];
     }
 
+    /** chapter number. Intros will return 0
+     * @type {number} 
+     */
     get number() {
-        return this.data.number || this.id.split('.')[1];
+        const strNumber = this.data.number || this.id.split('.')[1];
+        const number = parseInt(strNumber, 10);
+        return isNaN(number) ? 0 : number;
     }
 
+    /** Trimmed raw content from API if data has been refreshed or loaded
+     * @type {string}
+     */
     get content() {
-        return this.data.content || '';
+        const strContent = this.data.content;
+        let content = '';
+
+        if (strContent) {
+            content = strContent.trim();
+        }
+
+        return content;
     }
 
+    /** number of verses in the chapter or 0 if data has not been refreshed or loaded
+     * @type {number}
+     */
     get verseCount() {
         return this.data.verseCount || 0;
     }
 
+    /** Array of verses if data has been refreshed or loaded
+     * @type {array<string>}
+     */
     get verseList() {
         const verses = [];
 
@@ -39,6 +73,10 @@ class Chapter extends BibleEntity {
         return verses;
     }
 
+
+    /** The previous chapter in the book, or null if data is not refreshed/loaded
+     * @type {Chapter|null}
+     */
     get previousChapter() {
         let chapter = null;
         const { data : { previous }} = this;
@@ -50,6 +88,9 @@ class Chapter extends BibleEntity {
         return chapter;
     }
 
+    /** The next chapter in the book, or null if data is not refreshed/loaded
+     * @type {Chapter|null}
+     */
     get nextChapter() {
         let chapter = null;
         const { data : { next }} = this;
@@ -61,9 +102,13 @@ class Chapter extends BibleEntity {
         return chapter;
     }
 
+    /** gets previous chapter in the book
+     * @returns {Chapter|null}
+     */
     async getPrevious() {
         let chapter = this.previousChapter;
-
+        if (!chapter) return null;
+        
         try {
             await chapter.refreshData();
         } catch (getChapterError) {
@@ -73,8 +118,12 @@ class Chapter extends BibleEntity {
         return chapter;
     }
 
+    /** gets next chapter in the book
+     * @returns {Chapter|null}
+     */
     async getNext() {
         let chapter = this.nextChapter;
+        if (!chapter) return null;
 
         try {
             await chapter.refreshData();
@@ -85,6 +134,12 @@ class Chapter extends BibleEntity {
         return chapter;
     }
 
+    /**
+     * Populates data if constructed with a string, or retrieves data not present at instantiation
+     * This will load the content, verses, and previous/nextChapters properties
+     * 
+     * @returns {Promise<void>}
+     */
     async refreshData() {
         const data = await this.bibleService.getChapter(
             {
