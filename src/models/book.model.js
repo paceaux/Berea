@@ -5,7 +5,6 @@ const Chapter = require('./chapter.model');
  * @type {import('../bibleService').Book}
  */
 class Book extends BibleEntity {
-
     chapters = [];
 
     /**
@@ -13,14 +12,14 @@ class Book extends BibleEntity {
      * @param  {import('../bibleService').Bible} bible
      */
     constructor(data, bible) {
-        super(data, bible);
+      super(data, bible);
     }
-    
+
     /** Name of the book
      * @type {string}
      */
     get name() {
-        return this.data.name;
+      return this.data.name;
     }
 
     /**
@@ -28,7 +27,7 @@ class Book extends BibleEntity {
      * @type {string}
      */
     get longName() {
-        return this.data.nameLong;
+      return this.data.nameLong;
     }
 
     /**
@@ -36,23 +35,21 @@ class Book extends BibleEntity {
      * @type {string}
      */
     get abbreviation() {
-        return this.data.abbreviation;
+      return this.data.abbreviation;
     }
-
 
     /**
      * Populates data if constructed with a string, or retrieves data not present at instantiation
      * This will load the chapters property with chapters
-     * 
+     *
      * @returns {Promise<void>}
      */
     async refreshData() {
-        const data = await this.bibleService.getBook(this.bible.id, this.id);
-        const chapters = await this.getChapters();
-        this.data = data;
-        this.chapters = chapters;
+      const data = await this.bibleService.getBook(this.bible.id, this.id);
+      const chapters = await this.getChapters();
+      this.data = data;
+      this.chapters = chapters;
     }
-
 
     /**
      * Retrieves all chapters for this book
@@ -61,21 +58,18 @@ class Book extends BibleEntity {
      * @returns {Array<Chapter>}
      */
     async getChapters(params = {}) {
-        const request = {...params, bookId: this.id, id: this.bible.id };
-        let result = null;
+      const request = { ...params, bookId: this.id, id: this.bible.id };
+      let result = null;
 
-        try {
-            const chapters = await this.bibleService.getChaptersFromBook(request)
-            result = chapters.map((chapter) => {
-                return new Chapter(chapter, this.bible);
-            });
-        } catch (getError) {
-            console.log(getError);
-            result = getError;
-        }
+      try {
+        const chapters = await this.bibleService.getChaptersFromBook(request);
+        result = chapters.map((chapter) => new Chapter(chapter, this.bible));
+      } catch (getError) {
+        console.log(getError);
+        result = getError;
+      }
 
-        return result;
-
+      return result;
     }
 }
 
