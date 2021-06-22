@@ -1,6 +1,6 @@
 const Entity = require('../../src/models/entity.model');
 
-describe('Model: Bible-entity', () => {
+describe('Model: Entity', () => {
   describe('static methods', () => {
     describe('parseVerseId', () => {
       it('can return 5 values from a full id', () => {
