@@ -115,6 +115,17 @@ class Entity {
       }
       return verses;
     }
+
+    static parseChapters(content) {
+      const chapters = [];
+      const chapterRegex = new RegExp(/\s(?=\[1\])/);
+
+      const chaptersSplitByRegex = content.split(chapterRegex);
+      const chapterArray = chaptersSplitByRegex.map((chapterText) => chapterText.trim().replace('\n', ''));
+      chapters.push(...chapterArray.filter((el) => el));
+
+      return chapters;
+    }
 }
 
 module.exports = Entity;

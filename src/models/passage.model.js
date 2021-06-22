@@ -46,17 +46,13 @@ class Passage extends BibleEntity {
   get chapters() {
     const { chapterIds, data } = this;
     const chapters = [];
-    const chapterRegex = new RegExp(/\s(?=\[1\])/);
-    const verseRegex = new RegExp(/(?:\[[0-9]+\]\s)/);
 
-    if (chapterIds && chapterIds.length) {
+    if (chapterIds && chapterIds.length > 0) {
       const { content } = data;
       const chapterContents = [];
 
       if (content) {
-        const chaptersSplitByRegex = content.split(chapterRegex);
-        const chapterArray = chaptersSplitByRegex.map((chapterText) => chapterText.trim().replace('\n', ''));
-        chapterContents.push(...chapterArray.filter((el) => el));
+        chapterContents.push(...Passage.parseChapters(content));
       }
 
       const chapterObjects = chapterIds
@@ -66,9 +62,7 @@ class Passage extends BibleEntity {
 
           if (chapterContent) {
             chapter.data.content = chapterContents;
-            const verseSplit = chapterContent.split(verseRegex);
-            const verseArray = verseSplit.map((verse) => verse.trim().replace('\n', ''));
-            const verses = verseArray.filter((el) => el);
+            const verses = Passage.parseVerses(chapterContent);
             chapter.data.verseCount = verses.length;
           }
           return chapter;
