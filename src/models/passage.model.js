@@ -91,11 +91,8 @@ class Passage extends BibleEntity {
   get verseList() {
     const verses = [];
 
-    if (typeof this.content === 'string' && this.verseCount > 0) {
-      const splitRegex = new RegExp(/(?:\[[0-9]+\]\s)/);
-      const verseSplit = this.content.split(splitRegex);
-      const verseArray = verseSplit.map((verse) => verse.trim().replace('\n', ''));
-      verses.push(...verseArray.filter((el) => el));
+    if (this.verseCount > 0) {
+      verses.push(...Passage.parseVerses(this.data.content));
     }
     return verses;
   }
@@ -104,14 +101,7 @@ class Passage extends BibleEntity {
      * @type {string}
      */
   get content() {
-    const strContent = this.data.content;
-    let content = '';
-
-    if (strContent) {
-      content = strContent.trim();
-    }
-
-    return content;
+    return Passage.cleanContent(this.data.content);
   }
 
   /**
