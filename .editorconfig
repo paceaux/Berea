@@ -7,7 +7,7 @@ charset = utf-8
 
 [*.{js,json,ts,tsx}]
 indent_style = space
-indent_size = 4
+indent_size = 2
 
 [*.{md,markdown}]
 trim_trailing_whitespace = false
