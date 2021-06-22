@@ -16,43 +16,28 @@ class Passage extends BibleEntity {
      * @type {string}
      */
   get firstVerseId() {
-    const [start] = this.id.split('-');
-
-    return start;
+    return Passage.parseId(this.id).firstVerseId;
   }
 
   /** Id of the last verse in the passage
      * @type {string}
      */
   get lastVerseId() {
-    const [, last] = this.id.split('-');
-
-    return last;
+    return Passage.parseId(this.id).lastVerseId;
   }
 
   /** id for the book which contains this passage
      * @type {string}
      */
   get bookId() {
-    const [book] = this.id.split('.');
-    return `${book}`;
+    return Passage.parseId(this.id).bookId;
   }
 
   /** ids for the chapters the passage spans
      * @type {Array<string>}
      */
   get chapterIds() {
-    const { firstVerseId, lastVerseId, bookId } = this;
-    const firstChapterNum = parseInt(firstVerseId.split('.')[1], 10);
-    const lastChapterNum = parseInt(lastVerseId.split('.')[1], 10);
-    const chapterNumbers = [firstChapterNum, lastChapterNum];
-
-    while (chapterNumbers[chapterNumbers.length - 1] - 1 !== chapterNumbers[chapterNumbers.length - 2]) {
-      chapterNumbers.splice(chapterNumbers.length - 1, 0, chapterNumbers[chapterNumbers.length - 2] + 1);
-    }
-
-    return chapterNumbers
-      .map((chapterNumber) => `${bookId}.${chapterNumber}`);
+    return Passage.parseId(this.id).chapterIds;
   }
 
   /** Chapters the passage spans

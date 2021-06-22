@@ -75,7 +75,7 @@ class Entity {
       const firstVerseParsedId = Entity.parseVerseId(firstVerseId);
       const { bookId } = firstVerseParsedId;
 
-      const result = {
+      let result = {
         bookId,
       };
 
@@ -88,8 +88,7 @@ class Entity {
         result.firstVerseId = firstVerseId;
         result.chapterIds = chapterIds;
       } else {
-        result.verseId = firstVerseId;
-        result.chapterId = firstVerseParsedId.chapterId;
+        result = { ...firstVerseParsedId };
       }
 
       return result;

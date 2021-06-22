@@ -3,12 +3,15 @@ const Entity = require('../../src/models/entity.model');
 describe('Model: Bible-entity', () => {
   describe('static methods', () => {
     describe('parseVerseId', () => {
-      it('can return 3 values from a full id', () => {
+      it('can return 5 values from a full id', () => {
         const idObject = Entity.parseVerseId('GEN.1.1');
 
+        console.log(idObject);
         expect(idObject).toHaveProperty('bookId', 'GEN');
         expect(idObject).toHaveProperty('chapterId', 'GEN.1');
         expect(idObject).toHaveProperty('verseId', 'GEN.1.1');
+        expect(idObject).toHaveProperty('chapterNumber', 1);
+        expect(idObject).toHaveProperty('verseNumber', 1);
       });
       it('returns 2 values with just book and chapter', () => {
         const idObject = Entity.parseVerseId('GEN.1');

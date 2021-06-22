@@ -16,25 +16,21 @@ class Verse extends BibleEntity {
      * @type {string}
      */
   get bookId() {
-    const [book] = this.id.split('.');
-    return `${book}`;
+    return Verse.parseVerseId(this.id).bookId;
   }
 
   /** id for the chapter which contains this chapter
      * @type {string}
      */
   get chapterId() {
-    const [book, chapterNum] = this.id.split('.');
-    return `${book}.${chapterNum}`;
+    return Verse.parseId(this.id).chapterId;
   }
 
   /** chapter number. Intros will return 0
      * @type {number}
      */
   get number() {
-    const [, , verseNum] = this.id.split('.');
-    const number = parseInt(verseNum, 10);
-    return Number.isNaN(number) ? 0 : number;
+    return Verse.parseId(this.id).verseNumber;
   }
 
   get chapter() {

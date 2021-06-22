@@ -15,16 +15,14 @@ class Chapter extends BibleEntity {
      * @type {string}
      */
   get bookId() {
-    return this.data.bookId || this.id.split('.')[0];
+    return Chapter.parseId(this.id).bookId;
   }
 
   /** chapter number. Intros will return 0
      * @type {number}
      */
   get number() {
-    const strNumber = this.data.number || this.id.split('.')[1];
-    const number = parseInt(strNumber, 10);
-    return Number.isNaN(number) ? 0 : number;
+    return Chapter.parseId(this.id).chapterNumber;
   }
 
   /** Trimmed raw content from API if data has been refreshed or loaded
