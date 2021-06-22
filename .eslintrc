@@ -23,5 +23,6 @@
         "it": true
     },
     "rules": {
+        "max-len": ["error", {"code": 130 }]
     }
-}
+}                                          
