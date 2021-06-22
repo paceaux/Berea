@@ -7,14 +7,6 @@ const Chapter = require('./chapter.model');
 class Book extends BibleEntity {
     chapters = [];
 
-    /**
-     * @param  {Object} data
-     * @param  {import('../bibleService').Bible} bible
-     */
-    constructor(data, bible) {
-      super(data, bible);
-    }
-
     /** Name of the book
      * @type {string}
      */

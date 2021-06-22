@@ -13,14 +13,6 @@ class Bible extends Entity {
     books = [];
 
     /**
-     * @param  {object|string} data full data object returned from api, or the id of a bible
-     * @param  {BibleService|string} bibleService the BibleService, or the apikey that could be used to instantiate a service
-     */
-    constructor(data, bibleService) {
-      super(data, bibleService);
-    }
-
-    /**
      * Retrieves data from API and populates data property and books property.
      */
     async refreshData() {
@@ -121,7 +113,7 @@ class Bible extends Entity {
         result = new Verse(data, this);
       } catch (getError) {
         console.log(getError);
-        result = error;
+        result = getError;
       }
       return result;
     }

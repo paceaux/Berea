@@ -8,7 +8,7 @@ class BibleEntity extends Entity {
       super(data, bible.bibleService);
 
       if (typeof bible === 'string') {
-        this.bible = new Bible(bible, bibleService);
+        this.bible = new Bible(bible, bible.bibleService);
       } else {
         this.bible = bible;
       }

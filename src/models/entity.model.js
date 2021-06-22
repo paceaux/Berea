@@ -1,7 +1,7 @@
 const BibleService = require('../bibleService');
 
 class Entity {
-    id = ' ';
+    id = '';
 
     data = {};
 

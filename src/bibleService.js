@@ -21,22 +21,22 @@ const { RequestParameters, BibleTypes } = require('./constants');
 /**
  * @typedef BooksRequestParam
  * @property {string} id id of the Bible whose book to fetch
- * @property {boolean} [includeChapters=false] Boolean indicating if an array of chapter summaries should be included in the results. Defaults to false.
- * @property {boolean} [includeChaptersAndSections=false] Boolean indicating if an array of chapter summaries and an array of sections should be included in the results
+ * @property {boolean} [includeChapters=false] An array of chapter summaries should be in the results.
+ * @property {boolean} [includeChaptersAndSections=false] Arrays of chapter summaries and sections should be in the results
  */
 
 /**
  * @typedef BookRequestParam
  * @property {string} id id of the Bible whose book to fetch
  * @property {string} bookId id of the book to fetch
- * @property {boolean} [includeChapters=false] Boolean indicating if an array of chapter summaries should be included in the results. Defaults to false.
+ * @property {boolean} [includeChapters=false] Array of chapter summaries should be in the results.
  */
 
 /**
  * @typedef ChaptersRequestParam
  * @property {string} id id of the Bible whose book to fetch
  * @property {string} bookId id of the book to fetch
- * @property {boolean} [includeChapters=false] Boolean indicating if an array of chapter summaries should be included in the results. Defaults to false.
+ * @property {boolean} [includeChapters=false] An array of chapter summaries should be in the results.
  */
 
 /**
@@ -50,7 +50,7 @@ const { RequestParameters, BibleTypes } = require('./constants');
  * @property {boolean} [includeVerseNumbers] include verse numbers in content
  * @property {boolean} [includeVerseSpans] include spans that wrap verse numbers and verse text for bible content
  * @property {Array<string>} [parallels] comma separated list of bibleIds
- * @property {boolean} [includeChapters=false] Boolean indicating if an array of chapter summaries should be included in the results. Defaults to false.
+ * @property {boolean} [includeChapters=false] Boolean indicating if an array of chapter summaries should be in the results.
  */
 
 /**
@@ -64,7 +64,7 @@ const { RequestParameters, BibleTypes } = require('./constants');
  * @property {boolean} [includeVerseNumbers=false] include verse numbers in content
  * @property {boolean} [includeVerseSpans=false] include spans that wrap verse numbers and verse text for bible content
  * @property {Array<string>} [parallels] comma separated list of bibleIds
- * @property {boolean} [useOrgId=false] Use the supplied id(s) to match the verseOrgId instead of verseId. Defaults to false.
+ * @property {boolean} [useOrgId=false] Use the supplied id(s) to match the verseOrgId instead of verseId.
  */
 
 /**
@@ -160,428 +160,429 @@ const { RequestParameters, BibleTypes } = require('./constants');
  */
 
 class BibleService {
-	_apikey = '';
+    #apikey = '';
 
-	/**
-	 * @param  {string} apikey
-	 * @param  {number|string} version=1
-	 * @param  {BibleTypes} type='text'
-	 * @param  {} dependencies={Axios}
-	 */
-	constructor(apikey, version = 1, medium = 'text', dependencies = { Axios }) {
-	  /**
-		 * @type {string}
-		 * @public
-		 */
-	  this.version = version;
+    /**
+     * @param  {string} apikey
+     * @param  {number|string} version=1
+     * @param  {BibleTypes} type='text'
+     * @param  {} dependencies={Axios}
+     */
+    constructor(apikey, version = 1, medium = 'text', dependencies = { Axios }) {
+      /**
+         * @type {string}
+         * @public
+         */
+      this.version = version;
 
-	  /**
-		 * @type {string}
-		 * @private
-		 */
-	  this.medium = medium;
+      /**
+         * @type {string}
+         * @private
+         */
+      this.medium = medium;
 
-	  /**
-		 * @type {object}
-		 * @public
-		 */
-	  this.dependencies = dependencies;
+      /**
+         * @type {object}
+         * @public
+         */
+      this.dependencies = dependencies;
 
-	  /**
-		 * @type {string}
-		 * @public
-		 */
-	  this.apikey = apikey;
+      /**
+         * @type {string}
+         * @public
+         */
+      this.apikey = apikey;
 
-	  /**
-		 * @type {object}
-		 * @public
-		 */
-	  this.axios = BibleService.getAxiosInstance(dependencies, apikey, version);
-	}
+      /**
+         * @type {object}
+         * @public
+         */
+      this.axios = BibleService.getAxiosInstance(dependencies, apikey, version);
+    }
 
-	get apikey() {
-	  return this._apikey;
-	}
+    get apikey() {
+      return this.#apikey;
+    }
 
-	set apikey(key) {
-	  this._apikey = key;
-	  this.axios = BibleService.getAxiosInstance(this.dependencies, key, this.version);
-	}
+    set apikey(key) {
+      this.#apikey = key;
+      this.axios = BibleService.getAxiosInstance(this.dependencies, key, this.version);
+    }
 
-	/**
-	 * @param  {object} dependencies the dependencies object passed it, containing an Axios
-	 * @param  {string} apiKey
-	 * @param  {number} version
-	 */
-	static getAxiosInstance(dependencies, apiKey, version) {
-	  return dependencies.Axios.create({
-	    baseURL: `https://api.scripture.api.bible/v${version}`,
-	    headers: {
-	      'api-key': apiKey,
-	    },
-	  });
-	}
+    /**
+     * @param  {object} dependencies the dependencies object passed it, containing an Axios
+     * @param  {string} apiKey
+     * @param  {number} version
+     */
+    static getAxiosInstance(dependencies, apiKey, version) {
+      return dependencies.Axios.create({
+        baseURL: `https://api.scripture.api.bible/v${version}`,
+        headers: {
+          'api-key': apiKey,
+        },
+      });
+    }
 
-	/**
-	 * @type {import('./constants').BibleTypes}
-	 */
-	static BibleTypes = BibleTypes;
+    /**
+     * @type {import('./constants').BibleTypes}
+     */
+    static BibleTypes = BibleTypes;
 
-	/**
-	 * @type {import('./constants').RequestParameters}
-	 */
-	static RequestParameters = RequestParameters;
+    /**
+     * @type {import('./constants').RequestParameters}
+     */
+    static RequestParameters = RequestParameters;
 
-	get bibleType() {
-	  return BibleService.BibleTypes.get(this.medium);
-	}
+    get bibleType() {
+      return BibleService.BibleTypes.get(this.medium);
+    }
 
-	/**
-	 * @param  {} params
-	 */
-	static hyphenateParameters(params) {
-	  const newParams = {};
+    /**
+     * @param  {} params
+     */
+    static hyphenateParameters(params) {
+      const newParams = {};
 
-	  Object.entries(params).forEach(([k, v]) => {
-	    if (BibleService.RequestParameters.has(k)) {
-	      newParams[BibleService.RequestParameters.get(k)] = v;
-	    }
-	  });
+      Object.entries(params).forEach(([k, v]) => {
+        if (BibleService.RequestParameters.has(k)) {
+          newParams[BibleService.RequestParameters.get(k)] = v;
+        }
+      });
 
-	  return newParams;
-	}
+      return newParams;
+    }
 
-	/**
-	 * @param  {object} request
-	 *
-	 * @returns {ParsedApiRequest}
-	 */
-	static getRoutesAndParamFromRequest(request) {
-	  let {
-	    id, bookId, chapterId, sectionId, verseId, passageId,
-	  } = request;
-	  const params = { ...request };
-	  delete params.id;
+    /**
+     * @param  {object} request
+     *
+     * @returns {ParsedApiRequest}
+     */
+    static getRoutesAndParamFromRequest(request) {
+      let {
+        bookId, chapterId, sectionId, verseId, passageId,
+      } = request;
+      const { id } = request;
+      const params = { ...request };
+      delete params.id;
 
-	  if (bookId) {
-	    delete params.bookId;
-	    bookId = bookId.toUpperCase();
-	  }
-	  if (chapterId) {
-	    delete params.chapterId;
-	    chapterId = chapterId.toUpperCase();
-	  }
-	  if (sectionId) {
-	    delete params.sectionId;
-	    sectionId = sectionId.toUpperCase();
-	  }
-	  if (verseId) {
-	    delete params.verseId;
-	    verseId = verseId.toUpperCase();
-	  }
-	  if (passageId) {
-	    delete params.passageId;
-	    passageId = passageId.toUpperCase();
-	  }
+      if (bookId) {
+        delete params.bookId;
+        bookId = bookId.toUpperCase();
+      }
+      if (chapterId) {
+        delete params.chapterId;
+        chapterId = chapterId.toUpperCase();
+      }
+      if (sectionId) {
+        delete params.sectionId;
+        sectionId = sectionId.toUpperCase();
+      }
+      if (verseId) {
+        delete params.verseId;
+        verseId = verseId.toUpperCase();
+      }
+      if (passageId) {
+        delete params.passageId;
+        passageId = passageId.toUpperCase();
+      }
 
-	  const hyphenatedParams = BibleService.hyphenateParameters(params);
-	  return {
-	    id, params: hyphenatedParams, bookId, chapterId, sectionId, verseId, passageId,
-	  };
-	}
+      const hyphenatedParams = BibleService.hyphenateParameters(params);
+      return {
+        id, params: hyphenatedParams, bookId, chapterId, sectionId, verseId, passageId,
+      };
+    }
 
-	/**
-	 * @param {BiblesRequestParam} param
-	 *
-	 * @returns {Array<Bible>}
-	 */
-	async getBibles(request) {
-	  const { axios } = this;
-	  let result = null;
+    /**
+     * @param {BiblesRequestParam} param
+     *
+     * @returns {Array<Bible>}
+     */
+    async getBibles(request) {
+      const { axios } = this;
+      let result = null;
 
-	  try {
-	    const response = await axios.get(`/${this.bibleType}`, {
-	      params: request,
-	    });
-	    result = response.data.data;
-	  } catch (getError) {
-	    console.log(getError);
-	    result = getError;
-	  }
-	  return result;
-	}
+      try {
+        const response = await axios.get(`/${this.bibleType}`, {
+          params: request,
+        });
+        result = response.data.data;
+      } catch (getError) {
+        console.log(getError);
+        result = getError;
+      }
+      return result;
+    }
 
-	/**
-	 * @param  {string} id Gets Bible by Id
-	 *
-	 * @returns {Bible}
-	 */
-	async getBible(id) {
-	  if (!id) throw Error('id must be provided');
-	  const { axios } = this;
-	  let result = null;
+    /**
+     * @param  {string} id Gets Bible by Id
+     *
+     * @returns {Bible}
+     */
+    async getBible(id) {
+      if (!id) throw Error('id must be provided');
+      const { axios } = this;
+      let result = null;
 
-	  try {
-	    const response = await axios.get(`/${this.bibleType}/${id}`);
-	    result = response.data.data;
-	  } catch (getError) {
-	    console.log(getError);
-	    result = getError;
-	  }
-	  return result;
-	}
+      try {
+        const response = await axios.get(`/${this.bibleType}/${id}`);
+        result = response.data.data;
+      } catch (getError) {
+        console.log(getError);
+        result = getError;
+      }
+      return result;
+    }
 
-	/**
-	 * @param  {BooksRequestParam|string} request id of the bible or object containing id and parameters
-	 *
-	 * @returns {Array<Book>}
-	 */
-	async getBooks(request) {
-	  const { axios } = this;
-	  let id = request;
-	  let params = null;
-	  let result = null;
+    /**
+     * @param  {BooksRequestParam|string} request id of the bible or object containing id and parameters
+     *
+     * @returns {Array<Book>}
+     */
+    async getBooks(request) {
+      const { axios } = this;
+      let id = request;
+      let params = null;
+      let result = null;
 
-	  if (typeof request !== 'string') {
-	    const temp = BibleService.getRoutesAndParamFromRequest(request);
-	    id = temp.id;
-	    params = temp.params;
-	  }
+      if (typeof request !== 'string') {
+        const temp = BibleService.getRoutesAndParamFromRequest(request);
+        id = temp.id;
+        params = temp.params;
+      }
 
-	  try {
-	    const response = await axios.get(`/${this.bibleType}/${id}/books`, {
-	      params,
-	    });
-	    result = response.data.data;
-	  } catch (getError) {
-	    console.log(getError);
-	    result = getError;
-	  }
-	  return result;
-	}
+      try {
+        const response = await axios.get(`/${this.bibleType}/${id}/books`, {
+          params,
+        });
+        result = response.data.data;
+      } catch (getError) {
+        console.log(getError);
+        result = getError;
+      }
+      return result;
+    }
 
-	/**
-	 * @param  {string|BookRequestParam} request id of the bible or object containing id, bookId, and parameters
-	 * @param  {string} [bookIdStr] id of the book to fetch. Not required if the request is an object.
-	 *
-	 * @returns {Book}
-	 */
-	async getBook(request, bookIdStr) {
-	  const { axios } = this;
-	  let id;
-	  let bookId;
-	  let params;
-	  let result = null;
+    /**
+     * @param  {string|BookRequestParam} request id of the bible or object containing id, bookId, and parameters
+     * @param  {string} [bookIdStr] id of the book to fetch. Not required if the request is an object.
+     *
+     * @returns {Book}
+     */
+    async getBook(request, bookIdStr) {
+      const { axios } = this;
+      let id;
+      let bookId;
+      let params;
+      let result = null;
 
-	  if (typeof request === 'string') {
-	    if (!bookIdStr) throw new Error('bibleId provided as string without bookId as second parameter');
-	    id = request;
-	    bookId = bookIdStr.toUpperCase();
-	  }
+      if (typeof request === 'string') {
+        if (!bookIdStr) throw new Error('bibleId provided as string without bookId as second parameter');
+        id = request;
+        bookId = bookIdStr.toUpperCase();
+      }
 
-	  if (typeof request === 'object') {
-	    const temp = BibleService.getRoutesAndParamFromRequest(request);
-	    id = temp.id;
-	    bookId = temp.bookId;
-	    params = temp.params;
-	  }
+      if (typeof request === 'object') {
+        const temp = BibleService.getRoutesAndParamFromRequest(request);
+        id = temp.id;
+        bookId = temp.bookId;
+        params = temp.params;
+      }
 
-	  try {
-	    const response = await axios.get(`/${this.bibleType}/${id}/books/${bookId}`, {
-	      params,
-	    });
-	    result = response.data.data;
-	  } catch (getError) {
-	    console.log(getError);
-	    result = getError;
-	  }
-	  return result;
-	}
+      try {
+        const response = await axios.get(`/${this.bibleType}/${id}/books/${bookId}`, {
+          params,
+        });
+        result = response.data.data;
+      } catch (getError) {
+        console.log(getError);
+        result = getError;
+      }
+      return result;
+    }
 
-	/** Gets chapters from a single book
-	 * @param  {ChaptersRequestParam|string} request id of the bible or object containing id, bookId, and parameters
-	 * @param  {string} [bookIdStr]
-	 *
-	 * @returns {Array<ChapterSummary>}
-	 */
-	async getChaptersFromBook(request, bookIdStr) {
-	  let id;
-	  let bookId;
-	  let params;
-	  let result = null;
+    /** Gets chapters from a single book
+     * @param  {ChaptersRequestParam|string} request id of the bible or object containing id, bookId, and parameters
+     * @param  {string} [bookIdStr]
+     *
+     * @returns {Array<ChapterSummary>}
+     */
+    async getChaptersFromBook(request, bookIdStr) {
+      let id;
+      let bookId;
+      let params;
+      let result = null;
 
-	  if (typeof request === 'string') {
-	    if (!bookIdStr) throw new Error('bibleId provided as string without bookId as second parameter');
-	    bookId = bookIdStr;
-	    id = request;
-	  }
+      if (typeof request === 'string') {
+        if (!bookIdStr) throw new Error('bibleId provided as string without bookId as second parameter');
+        bookId = bookIdStr;
+        id = request;
+      }
 
-	  if (typeof request === 'object') {
-	    const temp = BibleService.getRoutesAndParamFromRequest(request);
-	    id = temp.id;
-	    bookId = temp.bookId;
-	    params = temp.params;
-	  }
+      if (typeof request === 'object') {
+        const temp = BibleService.getRoutesAndParamFromRequest(request);
+        id = temp.id;
+        bookId = temp.bookId;
+        params = temp.params;
+      }
 
-	  try {
-	    const response = await this.axios.get(`/${this.bibleType}/${id}/books/${bookId}/chapters`, {
-	      params,
-	    });
+      try {
+        const response = await this.axios.get(`/${this.bibleType}/${id}/books/${bookId}/chapters`, {
+          params,
+        });
 
-	    result = response.data.data;
-	  } catch (getError) {
-	    console.log(getError);
-	    result = getError;
-	  }
-	  return result;
-	}
+        result = response.data.data;
+      } catch (getError) {
+        console.log(getError);
+        result = getError;
+      }
+      return result;
+    }
 
-	/**
-	 * @param  {ChapterRequestParam|string} request
-	 * @param  {string} chapterIdStr
-	 *
-	 * @returns {Chapter}
-	 */
-	async getChapter(request, chapterIdStr) {
-	  let id;
-	  let chapterId;
-	  let params;
-	  let result = null;
+    /**
+     * @param  {ChapterRequestParam|string} request
+     * @param  {string} chapterIdStr
+     *
+     * @returns {Chapter}
+     */
+    async getChapter(request, chapterIdStr) {
+      let id;
+      let chapterId;
+      let params;
+      let result = null;
 
-	  if (typeof request === 'string') {
-	    if (!chapterIdStr) throw new Error('bibleId provided as string without chapterId as second parameter');
-	    chapterId = chapterIdStr.toLowerCase(); // if the chapter is .intro it must be lowercase
-	    id = request;
-	  }
+      if (typeof request === 'string') {
+        if (!chapterIdStr) throw new Error('bibleId provided as string without chapterId as second parameter');
+        chapterId = chapterIdStr.toLowerCase(); // if the chapter is .intro it must be lowercase
+        id = request;
+      }
 
-	  if (typeof request === 'object') {
-	    const temp = BibleService.getRoutesAndParamFromRequest(request);
-	    id = temp.id;
-	    chapterId = temp.chapterId.toLowerCase();
-	    params = temp.params;
-	  }
+      if (typeof request === 'object') {
+        const temp = BibleService.getRoutesAndParamFromRequest(request);
+        id = temp.id;
+        chapterId = temp.chapterId.toLowerCase();
+        params = temp.params;
+      }
 
-	  try {
-	    const response = await this.axios.get(`/${this.bibleType}/${id}/chapters/${chapterId}`, {
-	      params,
-	    });
+      try {
+        const response = await this.axios.get(`/${this.bibleType}/${id}/chapters/${chapterId}`, {
+          params,
+        });
 
-	    result = response.data.data;
-	  } catch (getError) {
-	    console.log(getError);
-	    result = getError;
-	  }
-	  return result;
-	}
+        result = response.data.data;
+      } catch (getError) {
+        console.log(getError);
+        result = getError;
+      }
+      return result;
+    }
 
-	/**
-	 * @param  {PassageRequestParam|string} request
-	 * @param  {string} passageIdStr
-	 *
-	 * @returns {Passage}
-	 */
-	async getPassage(request, passageIdStr) {
-	  let id;
-	  let passageId;
-	  let params;
-	  let result = null;
+    /**
+     * @param  {PassageRequestParam|string} request
+     * @param  {string} passageIdStr
+     *
+     * @returns {Passage}
+     */
+    async getPassage(request, passageIdStr) {
+      let id;
+      let passageId;
+      let params;
+      let result = null;
 
-	  if (typeof request === 'string') {
-	    if (!passageIdStr) throw new Error('bibleId provided as string without passageId as second parameter');
-	    passageId = passageIdStr.toUpperCase();
-	    id = request;
-	  }
+      if (typeof request === 'string') {
+        if (!passageIdStr) throw new Error('bibleId provided as string without passageId as second parameter');
+        passageId = passageIdStr.toUpperCase();
+        id = request;
+      }
 
-	  if (typeof request === 'object') {
-	    const temp = BibleService.getRoutesAndParamFromRequest(request);
-	    id = temp.id;
-	    passageId = temp.passageId;
-	    params = temp.params;
-	  }
+      if (typeof request === 'object') {
+        const temp = BibleService.getRoutesAndParamFromRequest(request);
+        id = temp.id;
+        passageId = temp.passageId;
+        params = temp.params;
+      }
 
-	  try {
-	    const response = await this.axios.get(`/${this.bibleType}/${id}/passages/${passageId}`, {
-	      params,
-	    });
+      try {
+        const response = await this.axios.get(`/${this.bibleType}/${id}/passages/${passageId}`, {
+          params,
+        });
 
-	    result = response.data.data;
-	  } catch (getError) {
-	    console.log(getError);
-	    result = getError;
-	  }
-	  return result;
-	}
+        result = response.data.data;
+      } catch (getError) {
+        console.log(getError);
+        result = getError;
+      }
+      return result;
+    }
 
-	/** Gets verses from a single chapter
+    /** Gets verses from a single chapter
  * @param  {ChaptersRequestParam|string} request id of the bible or object containing id, bookId, and parameters
  * @param  {string} [bookIdStr]
  *
  * @returns {Array<Chapter>}
  */
-	async getVersesFromChapter(request, chapterIdStr) {
-	  let id;
-	  let chapterId;
-	  let params;
-	  let result = null;
+    async getVersesFromChapter(request, chapterIdStr) {
+      let id;
+      let chapterId;
+      let params;
+      let result = null;
 
-	  if (typeof request === 'string') {
-	    if (!chapterIdStr) throw new Error('bibleId provided as string without chapterId as second parameter');
-	    chapterId = chapterIdStr.toLowerCase(); // if the chapter is .intro it must be lowercase
-	    id = request;
-	  }
+      if (typeof request === 'string') {
+        if (!chapterIdStr) throw new Error('bibleId provided as string without chapterId as second parameter');
+        chapterId = chapterIdStr.toLowerCase(); // if the chapter is .intro it must be lowercase
+        id = request;
+      }
 
-	  if (typeof request === 'object') {
-	    const temp = BibleService.getRoutesAndParamFromRequest(request);
-	    id = temp.id;
-	    chapterId = temp.chapterId.toLowerCase();
-	    params = temp.params;
-	  }
+      if (typeof request === 'object') {
+        const temp = BibleService.getRoutesAndParamFromRequest(request);
+        id = temp.id;
+        chapterId = temp.chapterId.toLowerCase();
+        params = temp.params;
+      }
 
-	  try {
-	    const response = await this.axios.get(`/${this.bibleType}/${id}/chapters/${chapterId}/verses`, {
-	      params,
-	    });
+      try {
+        const response = await this.axios.get(`/${this.bibleType}/${id}/chapters/${chapterId}/verses`, {
+          params,
+        });
 
-	    result = response.data.data;
-	  } catch (getError) {
-	    console.log(getError);
-	    result = getError;
-	  }
-	  return result;
-	}
+        result = response.data.data;
+      } catch (getError) {
+        console.log(getError);
+        result = getError;
+      }
+      return result;
+    }
 
-	async getVerse(request, verseIdStr) {
-	  let id;
-	  let verseId;
-	  let params;
-	  let result = null;
+    async getVerse(request, verseIdStr) {
+      let id;
+      let verseId;
+      let params;
+      let result = null;
 
-	  if (typeof request === 'string') {
-	    if (!verseIdStr) throw new Error('bibleId provided as string without verseId as second parameter');
-	    verseId = verseIdStr.toLowerCase(); // if the chapter is .intro it must be lowercase
-	    id = request;
-	  }
+      if (typeof request === 'string') {
+        if (!verseIdStr) throw new Error('bibleId provided as string without verseId as second parameter');
+        verseId = verseIdStr.toLowerCase(); // if the chapter is .intro it must be lowercase
+        id = request;
+      }
 
-	  if (typeof request === 'object') {
-	    const temp = BibleService.getRoutesAndParamFromRequest(request);
-	    id = temp.id;
-	    verseId = temp.verseId.toLowerCase();
-	    params = temp.params;
-	  }
+      if (typeof request === 'object') {
+        const temp = BibleService.getRoutesAndParamFromRequest(request);
+        id = temp.id;
+        verseId = temp.verseId.toLowerCase();
+        params = temp.params;
+      }
 
-	  try {
-	    const response = await this.axios.get(`/${this.bibleType}/${id}/verses/${verseId}`, {
-	      params,
-	    });
+      try {
+        const response = await this.axios.get(`/${this.bibleType}/${id}/verses/${verseId}`, {
+          params,
+        });
 
-	    result = response.data.data;
-	  } catch (getError) {
-	    console.log(getError);
-	    result = getError;
-	  }
-	  return result;
-	}
+        result = response.data.data;
+      } catch (getError) {
+        console.log(getError);
+        result = getError;
+      }
+      return result;
+    }
 }
 
 module.exports = BibleService;
