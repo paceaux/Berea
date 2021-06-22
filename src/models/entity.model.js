@@ -29,6 +29,71 @@ class Entity {
         this.bibleService = bibleService;
       }
     }
+
+    static parseVerseId(idString) {
+      const [book, chapterNum, verseNum] = idString.split('.');
+
+      const bookId = book;
+      const chapterId = chapterNum && `${book}.${chapterNum}`;
+      const verseId = verseNum && idString;
+
+      const result = {
+        bookId,
+      };
+
+      if (chapterNum) {
+        const chapterNumber = parseInt(chapterNum, 10);
+        result.chapterId = chapterId;
+        result.chapterNumber = Number.isNaN(chapterNum) ? 0 : chapterNumber;
+      }
+
+      if (verseNum) {
+        const verseNumber = parseInt(verseNum, 10);
+        result.verseId = verseId;
+        result.verseNumber = Number.isNaN(verseNum) ? 0 : verseNumber;
+      }
+
+      return result;
+    }
+
+    static fillChapterIds(firstChapterNum, lastChapterNum, bookId) {
+      const chapterNumbers = [firstChapterNum, lastChapterNum];
+
+      while (chapterNumbers[chapterNumbers.length - 1] - 1 !== chapterNumbers[chapterNumbers.length - 2]) {
+        chapterNumbers.splice(chapterNumbers.length - 1, 0, chapterNumbers[chapterNumbers.length - 2] + 1);
+      }
+
+      const chapterIds = chapterNumbers
+        .map((chapterNumber) => `${bookId}.${chapterNumber}`);
+
+      return chapterIds;
+    }
+
+    static parseId(idString) {
+      const [firstVerseId, lastVerseId] = idString.split('-');
+
+      const firstVerseParsedId = Entity.parseVerseId(firstVerseId);
+      const { bookId } = firstVerseParsedId;
+
+      const result = {
+        bookId,
+      };
+
+      if (lastVerseId) {
+        const { chapterNumber: lastChapterNum } = Entity.parseVerseId(lastVerseId);
+        const { chapterNumber: firstChapterNum } = firstVerseParsedId;
+        const chapterIds = Entity.fillChapterIds(firstChapterNum, lastChapterNum, bookId);
+
+        result.lastVerseId = lastVerseId;
+        result.firstVerseId = firstVerseId;
+        result.chapterIds = chapterIds;
+      } else {
+        result.verseId = firstVerseId;
+        result.chapterId = firstVerseParsedId.chapterId;
+      }
+
+      return result;
+    }
 }
 
 module.exports = Entity;
