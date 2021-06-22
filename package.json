@@ -12,6 +12,10 @@
     "build": "babel src --out-dir build",
     "clean": "rm -rf build"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paceaux/BibleApi"
+  },
   "keywords": [
     "Library",
     "API",
@@ -19,7 +23,17 @@
     "Scripture"
   ],
   "author": "Frank M. Taylor (AKA Paceaux)",
+  "contributors": [
+    {
+      "name": "Frank M. Taylor",
+      "email": "frank.m.taylor08@gmail.com",
+      "url": "https://blog.frankmtaylor.com"
+    }
+  ],
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/paceaux/BibleApi/issues"
+  },
   "dependencies": {
     "axios": "^0.21.1",
     "save-dev": "0.0.1-security"
