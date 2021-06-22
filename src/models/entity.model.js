@@ -93,6 +93,28 @@ class Entity {
 
       return result;
     }
+
+    static cleanContent(strContent) {
+      let content = '';
+
+      if (strContent) {
+        content = strContent.trim();
+      }
+
+      return content;
+    }
+
+    static parseVerses(content) {
+      const verses = [];
+
+      if (typeof content === 'string') {
+        const splitRegex = new RegExp(/(?:\[[0-9]+\]\s)/);
+        const verseSplit = content.split(splitRegex);
+        const verseArray = verseSplit.map((verse) => verse.trim().replace('\n', ''));
+        verses.push(...verseArray.filter((el) => el));
+      }
+      return verses;
+    }
 }
 
 module.exports = Entity;
