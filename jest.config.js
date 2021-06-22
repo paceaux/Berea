@@ -1,9 +1,9 @@
 module.exports = {
-  "testMatch": [
-    "(/test/.*|(\\.|/)(test|spec))\\.[jt]sx?$",
-    "**/?(*.)+(spec|test).[tj]s?(x)"
+  testMatch: [
+    '(/test/.*|(\\.|/)(test|spec))\\.[jt]sx?$',
+    '**/?(*.)+(spec|test).[tj]s?(x)',
   ],
-  // "transform": {
-  //   "^.+\\.(ts|tsx)$": "ts-jest"
-  // },
-}
+  transform: {
+    '^.+\\.[t|j]sx?$': 'babel-jest',
+  },
+};
