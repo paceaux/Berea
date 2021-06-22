@@ -44,13 +44,13 @@ class Entity {
       if (chapterNum) {
         const chapterNumber = parseInt(chapterNum, 10);
         result.chapterId = chapterId;
-        result.chapterNumber = Number.isNaN(chapterNum) ? 0 : chapterNumber;
+        result.chapterNumber = Number.isNaN(chapterNumber) ? 0 : chapterNumber;
       }
 
       if (verseNum) {
         const verseNumber = parseInt(verseNum, 10);
         result.verseId = verseId;
-        result.verseNumber = Number.isNaN(verseNum) ? 0 : verseNumber;
+        result.verseNumber = Number.isNaN(verseNumber) ? 0 : verseNumber;
       }
 
       return result;

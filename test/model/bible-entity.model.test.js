@@ -17,6 +17,13 @@ describe('Model: Bible-entity', () => {
         expect(idObject).toHaveProperty('chapterId', 'GEN.1');
         expect(idObject).not.toHaveProperty('verseId');
       });
+      it('returns 0 on chapter if intro', () => {
+        const idObject = Entity.parseVerseId('GEN.intro');
+
+        expect(idObject).toHaveProperty('bookId', 'GEN');
+        expect(idObject).toHaveProperty('chapterId', 'GEN.intro');
+        expect(idObject).toHaveProperty('chapterNumber', 0);
+      });
       it('returns 1 value with just book ', () => {
         const idObject = Entity.parseVerseId('GEN');
 
