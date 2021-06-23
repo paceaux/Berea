@@ -5,42 +5,54 @@ const Chapter = require('./chapter.model');
  * @type {import('../bibleService').Passage}
  */
 class Passage extends BibleEntity {
-  /** Name of book and chapter, or undefined if data not refreshed
-     * @type {string|undefined}
-     */
+  /**
+   * Name of book and chapter, or undefined if data not refreshed
+   *
+   * @type {string|undefined}
+   */
   get name() {
     return this.data.reference;
   }
 
-  /** Id of the first verse in the passage
-     * @type {string}
-     */
+  /**
+   * Id of the first verse in the passage
+   *
+   * @type {string}
+   */
   get firstVerseId() {
     return Passage.parseId(this.id).firstVerseId;
   }
 
-  /** Id of the last verse in the passage
-     * @type {string}
-     */
+  /**
+   * Id of the last verse in the passage
+   *
+   * @type {string}
+   */
   get lastVerseId() {
     return Passage.parseId(this.id).lastVerseId;
   }
 
-  /** id for the book which contains this passage
-     * @type {string}
-     */
+  /**
+   * id for the book which contains this passage
+   *
+   * @type {string}
+   */
   get bookId() {
     return Passage.parseId(this.id).bookId;
   }
 
-  /** ids for the chapters the passage spans
-     * @type {Array<string>}
-     */
+  /**
+   * ids for the chapters the passage spans
+   *
+   * @type {Array<string>}
+   */
   get chapterIds() {
     return Passage.parseId(this.id).chapterIds;
   }
 
-  /** Chapters the passage spans
+  /**
+   * Chapters the passage spans
+   *
    * @type {Array<string}
    */
   get chapters() {
@@ -72,16 +84,20 @@ class Passage extends BibleEntity {
     return chapters;
   }
 
-  /** number of verses in the chapter or 0 if data has not been refreshed or loaded
-     * @type {number}
-     */
+  /**
+   * number of verses in the chapter or 0 if data has not been refreshed or loaded
+   *
+   * @type {number}
+   */
   get verseCount() {
     return this.data.verseCount || 0;
   }
 
-  /** Array of verses if data has been refreshed or loaded
-     * @type {array<string>}
-     */
+  /**
+   * Array of verses if data has been refreshed or loaded
+   *
+   * @type {Array<string>}
+   */
   get verseList() {
     const verses = [];
 
@@ -91,19 +107,21 @@ class Passage extends BibleEntity {
     return verses;
   }
 
-  /** Trimmed raw content from API if data has been refreshed or loaded
-     * @type {string}
-     */
+  /**
+   * Trimmed raw content from API if data has been refreshed or loaded
+   *
+   * @type {string}
+   */
   get content() {
     return Passage.cleanContent(this.data.content);
   }
 
   /**
-     * Populates data if constructed with a string, or retrieves data not present at instantiation
-     * This will load the content, verses, and previous/nextChapters properties
-     *
-     * @returns {Promise<void>}
-     */
+   * Populates data if constructed with a string, or retrieves data not present at instantiation
+   * This will load the content, verses, and previous/nextChapters properties
+   *
+   * @returns {Promise<void>}
+   */
   async refreshData() {
     const data = await this.bibleService.getPassage(
       {

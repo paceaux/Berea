@@ -1,5 +1,6 @@
 /**
  * enum for all the parameters that can be submitted through any of the service methods
+ *
  * @readonly
  * @enum {string}
  */

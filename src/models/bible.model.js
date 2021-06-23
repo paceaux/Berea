@@ -7,6 +7,7 @@ const Verse = require('./verse.model');
 class Bible extends Entity {
     /**
      * All books in the bible. populated after running refreshData()
+     *
      * @type {Array<string>}
      * @public
      */
@@ -22,7 +23,9 @@ class Bible extends Entity {
       this.data = data;
     }
 
-    /** Gets all of the books associated with the Bible
+    /**
+     * Gets all of the books associated with the Bible
+     *
      * @param  {BooksRequestParam} params
      */
     async getBooks(params) {
@@ -56,7 +59,9 @@ class Bible extends Entity {
       return request;
     }
 
-    /** Gets a book from the Bible
+    /**
+     * Gets a book from the Bible
+     *
      * @param  {BookRequestParam|string} params either an object with id or bookId, or a string that is the bookId
      */
     async getBook(params) {
@@ -73,7 +78,9 @@ class Bible extends Entity {
       return result;
     }
 
-    /** Gets a chapter by Id from the Bible
+    /**
+     * Gets a chapter by Id from the Bible
+     *
      * @param  {ChapterRequestParam|string} params
      */
     async getChapter(params) {

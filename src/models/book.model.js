@@ -7,7 +7,9 @@ const Chapter = require('./chapter.model');
 class Book extends BibleEntity {
     chapters = [];
 
-    /** Name of the book
+    /**
+     * Name of the book
+     *
      * @type {string}
      */
     get name() {
@@ -16,6 +18,7 @@ class Book extends BibleEntity {
 
     /**
      * Full name (or short description)
+     *
      * @type {string}
      */
     get longName() {
@@ -24,6 +27,7 @@ class Book extends BibleEntity {
 
     /**
      * Abbreviation used by the API
+     *
      * @type {string}
      */
     get abbreviation() {
@@ -45,8 +49,9 @@ class Book extends BibleEntity {
 
     /**
      * Retrieves all chapters for this book
-     * @param  {import('../bibleService').ChapterRequestParam} params={}
      *
+     * @param  {import('../bibleService').ChapterRequestParam} params={}
+     * @param params
      * @returns {Array<Chapter>}
      */
     async getChapters(params = {}) {

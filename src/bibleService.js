@@ -9,6 +9,7 @@ const { RequestParameters, BibleTypes } = require('./constants');
  * @property {string} chapterId bibleId
  * @property {string} sectionId bibleId
  * @property {object} params additional parameters to submit to api
+ */
 
 /**
  * @typedef BiblesRequestParam
@@ -69,57 +70,56 @@ const { RequestParameters, BibleTypes } = require('./constants');
 
 /**
  * @typedef Bible
- * @property {string} id
- * @property {string} dblId
- * @property {string} abbreviation
- * @property {string} abbreviationLocal
- * @property {string} copyright
- * @property {object} language
- * @property {Array<Object>} countries
- * @property {string} name
- * @property {string} nameLocal
- * @property {string} description
- * @property {string} descriptionLocal
- * @property {string} info
- * @property {string} type
- * @property {Date} updatedAt
- * @property {string} relatedDbl
- * @property {Array<Object>} audioBibles
+ * @property {string} id unique identifier of the bible
+ * @property {string} dblId not sure. Similar to id, but without trailing -01
+ * @property {string} abbreviation 3-letter common abbreviation (e.g. ASV, KJV, NIV)
+ * @property {string} abbreviationLocal localized abbreviation
+ * @property {string} copyright copyright notice
+ * @property {object} language ISO language
+ * @property {Array<object>} countries countries bible was published for
+ * @property {string} name name of bible
+ * @property {string} nameLocal localized (translated) name
+ * @property {string} description Summary of the bible
+ * @property {string} descriptionLocal localized (Translated) summary
+ * @property {string} info metadata
+ * @property {string} type kind of bible
+ * @property {Date} updatedAt last time content was updated
+ * @property {string} relatedDbl not sure
+ * @property {Array<object>} audioBibles audio versions of this bible
  */
 
 /**
  * @typedef Book
- * @property {string} id
- * @property {string} bibleId
- * @property {string} abbreviation
- * @property {string} name
- * @property {string} nameLong
- * @property {Array<Chapter>} chapters
+ * @property {string} id 3-letter identifier of the book
+ * @property {string} bibleId id of the bible
+ * @property {string} abbreviation user readable abbreviation
+ * @property {string} name name of the book
+ * @property {string} nameLong extended name
+ * @property {Array<ChapterSummary>} chapters Small details of the chapters within the book
  */
 
 /**
- * @typedef ChapterSummary
- * @property {string} id
- * @property {string} bibleId
- * @property {string} number
- * @property {string} bookId
- * @property {string} content
- * @property {string} reference
-
+ * @typedef ChapterSummary chapter data without verses
+ * @property {string} id 3-letter identifier for book and integer (e.g. GEN.1)
+ * @property {string} bibleId id of the containing bible
+ * @property {string} number integer; chapter number
+ * @property {string} bookId 3-letter identifier for book
+ * @property {string} content text
+ * @property {string} reference reader friendly version (e.g. Genesis 1)
  */
 
 /**
- * @typedef Chapter
- * @property {string} id
- * @property {string} bibleId
- * @property {string} number
- * @property {string} bookId
- * @property {string} content
- * @property {string} reference
- * @property {Number} verseCount
- * @property {string} copyright
- * @property {Object} next
- * @property {Object} previous
+ * @typedef Chapter chapter data with verse info
+ * @property {string} id 3-letter identifier for book and integer (e.g. GEN.1)
+ * @property {string} bibleId id of the containing bible
+ * @property {string} number integer; chapter number
+ * @property {string} bookId 3-letter identifier for book
+ * @property {string} content text
+ * @property {string} reference reader friendly version (e.g. Genesis 1)
+ * @property {number} verseCount quantity of verses
+ * @property {string} copyright copyright information
+ * @property {object} next chapter number and ID of the next chapter in the book
+ * @property {object} previous chapter number and ID of the previous chapter in the book
  */
 
 /**
@@ -130,7 +130,6 @@ const { RequestParameters, BibleTypes } = require('./constants');
  * @property {string} bookId
  * @property {string} chapterId
  * @property {string} reference
-
  */
 
 /**
@@ -153,10 +152,10 @@ const { RequestParameters, BibleTypes } = require('./constants');
  * @property {string} chapterId
  * @property {string} content
  * @property {string} reference
- * @property {Number} verseCount
+ * @property {number} verseCount
  * @property {string} copyright
- * @property {Object} next
- * @property {Object} previous
+ * @property {object} next
+ * @property {object} previous
  */
 
 class BibleService {
@@ -167,36 +166,39 @@ class BibleService {
      * @param  {number|string} version=1
      * @param  {BibleTypes} type='text'
      * @param  {} dependencies={Axios}
+     * @param version
+     * @param medium
+     * @param dependencies
      */
     constructor(apikey, version = 1, medium = 'text', dependencies = { Axios }) {
       /**
-         * @type {string}
-         * @public
-         */
+       * @type {string}
+       * @public
+       */
       this.version = version;
 
       /**
-         * @type {string}
-         * @private
-         */
+       * @type {string}
+       * @private
+       */
       this.medium = medium;
 
       /**
-         * @type {object}
-         * @public
-         */
+       * @type {object}
+       * @public
+       */
       this.dependencies = dependencies;
 
       /**
-         * @type {string}
-         * @public
-         */
+       * @type {string}
+       * @public
+       */
       this.apikey = apikey;
 
       /**
-         * @type {object}
-         * @public
-         */
+       * @type {object}
+       * @public
+       */
       this.axios = BibleService.getAxiosInstance(dependencies, apikey, version);
     }
 
@@ -213,6 +215,7 @@ class BibleService {
      * @param  {object} dependencies the dependencies object passed it, containing an Axios
      * @param  {string} apiKey
      * @param  {number} version
+     * @returns {object} Axios instance
      */
     static getAxiosInstance(dependencies, apiKey, version) {
       return dependencies.Axios.create({
@@ -254,7 +257,6 @@ class BibleService {
 
     /**
      * @param  {object} request
-     *
      * @returns {ParsedApiRequest}
      */
     static getRoutesAndParamFromRequest(request) {
@@ -294,7 +296,7 @@ class BibleService {
 
     /**
      * @param {BiblesRequestParam} param
-     *
+     * @param request
      * @returns {Array<Bible>}
      */
     async getBibles(request) {
@@ -315,7 +317,6 @@ class BibleService {
 
     /**
      * @param  {string} id Gets Bible by Id
-     *
      * @returns {Bible}
      */
     async getBible(id) {
@@ -335,7 +336,6 @@ class BibleService {
 
     /**
      * @param  {BooksRequestParam|string} request id of the bible or object containing id and parameters
-     *
      * @returns {Array<Book>}
      */
     async getBooks(request) {
@@ -365,7 +365,6 @@ class BibleService {
     /**
      * @param  {string|BookRequestParam} request id of the bible or object containing id, bookId, and parameters
      * @param  {string} [bookIdStr] id of the book to fetch. Not required if the request is an object.
-     *
      * @returns {Book}
      */
     async getBook(request, bookIdStr) {
@@ -400,10 +399,11 @@ class BibleService {
       return result;
     }
 
-    /** Gets chapters from a single book
+    /**
+     * Gets chapters from a single book
+     *
      * @param  {ChaptersRequestParam|string} request id of the bible or object containing id, bookId, and parameters
      * @param  {string} [bookIdStr]
-     *
      * @returns {Array<ChapterSummary>}
      */
     async getChaptersFromBook(request, bookIdStr) {
@@ -441,7 +441,6 @@ class BibleService {
     /**
      * @param  {ChapterRequestParam|string} request
      * @param  {string} chapterIdStr
-     *
      * @returns {Chapter}
      */
     async getChapter(request, chapterIdStr) {
@@ -479,7 +478,6 @@ class BibleService {
     /**
      * @param  {PassageRequestParam|string} request
      * @param  {string} passageIdStr
-     *
      * @returns {Passage}
      */
     async getPassage(request, passageIdStr) {
@@ -514,12 +512,14 @@ class BibleService {
       return result;
     }
 
-    /** Gets verses from a single chapter
- * @param  {ChaptersRequestParam|string} request id of the bible or object containing id, bookId, and parameters
- * @param  {string} [bookIdStr]
- *
- * @returns {Array<Chapter>}
- */
+    /**
+     * Gets verses from a single chapter
+     *
+     * @param  {ChaptersRequestParam|string} request id of the bible or object containing id, bookId, and parameters
+     * @param  {string} [bookIdStr]
+     * @param chapterIdStr
+     * @returns {Array<Chapter>}
+     */
     async getVersesFromChapter(request, chapterIdStr) {
       let id;
       let chapterId;
