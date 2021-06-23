@@ -6,7 +6,7 @@
         "es2021": true,
         "jest": true
     },
-    "extends": "airbnb-base",
+    "extends": ["airbnb-base", "plugin:jsdoc/recommended"],
     "parserOptions": {
         "sourceType": "module",
         "babelOptions": {
@@ -24,5 +24,8 @@
     },
     "rules": {
         "max-len": ["error", {"code": 130 }]
-    }
+    },
+    "plugins": [
+        "jsdoc"
+    ]
 }                                          
