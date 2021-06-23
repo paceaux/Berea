@@ -53,7 +53,7 @@ class Passage extends BibleEntity {
   /**
    * Chapters the passage spans
    *
-   * @type {Array<string}
+   * @type {Array<string>}
    */
   get chapters() {
     const { chapterIds, data } = this;

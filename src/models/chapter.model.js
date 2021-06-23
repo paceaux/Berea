@@ -96,7 +96,7 @@ class Chapter extends BibleEntity {
   /**
    * gets previous chapter in the book
    *
-   * @returns {Chapter|null}
+   * @returns {Chapter|null} preceding chapter in book
    */
   async getPrevious() {
     const chapter = this.previousChapter;
@@ -114,7 +114,7 @@ class Chapter extends BibleEntity {
   /**
    * gets next chapter in the book
    *
-   * @returns {Chapter|null}
+   * @returns {Chapter|null} succeeding chapter in book
    */
   async getNext() {
     const chapter = this.nextChapter;

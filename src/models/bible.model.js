@@ -26,7 +26,8 @@ class Bible extends Entity {
     /**
      * Gets all of the books associated with the Bible
      *
-     * @param  {BooksRequestParam} params
+     * @param  {BooksRequestParam} params parameters for retrieving books
+     * @returns {Array<Book>} Shallow copies of books
      */
     async getBooks(params) {
       const request = { ...params, id: this.id };
@@ -63,6 +64,7 @@ class Bible extends Entity {
      * Gets a book from the Bible
      *
      * @param  {BookRequestParam|string} params either an object with id or bookId, or a string that is the bookId
+     * @returns {Book} Data for book of the bible
      */
     async getBook(params) {
       let result = null;
@@ -82,6 +84,7 @@ class Bible extends Entity {
      * Gets a chapter by Id from the Bible
      *
      * @param  {ChapterRequestParam|string} params
+     * @returns {Chapter} fully-populated chapter object
      */
     async getChapter(params) {
       let result = null;
@@ -97,6 +100,12 @@ class Bible extends Entity {
       return result;
     }
 
+    /**
+     * Gets a passage (range of verses)
+     *
+     * @param  {PassageRequestParam|string} params
+     * @returns {Passage} fully-populated chapter object
+     */
     async getPassage(params) {
       let result = null;
       const request = this.prepareRequest(params, 'passageId');
@@ -111,6 +120,12 @@ class Bible extends Entity {
       return result;
     }
 
+    /**
+     * Gets a verse by Id from the Bible
+     *
+     * @param  {VerseRequestParam|string} params
+     * @returns {Verse} fully-populated verse object
+     */
     async getVerse(params) {
       let result = null;
       const request = this.prepareRequest(params, 'verseId');

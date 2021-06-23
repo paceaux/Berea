@@ -50,9 +50,8 @@ class Book extends BibleEntity {
     /**
      * Retrieves all chapters for this book
      *
-     * @param  {import('../bibleService').ChapterRequestParam} params={}
-     * @param params
-     * @returns {Array<Chapter>}
+     * @param  {import('../bibleService').ChapterRequestParam} [params] request parameters
+     * @returns {Array<Chapter>} an array of chapters in the book
      */
     async getChapters(params = {}) {
       const request = { ...params, bookId: this.id, id: this.bible.id };

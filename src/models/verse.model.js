@@ -41,6 +41,11 @@ class Verse extends BibleEntity {
     return Verse.parseId(this.id).verseNumber;
   }
 
+  /**
+   * Chapter that contains the verse
+   *
+   * @type {Chapter} Shallow-populated chapter object
+   */
   get chapter() {
     const { chapterId } = this;
     let chapter = null;
@@ -103,7 +108,7 @@ class Verse extends BibleEntity {
   /**
    * gets previous verse in the book
    *
-   * @returns {Verse|null}
+   * @returns {Verse|null} preceding verse in chapter
    */
   async getPrevious() {
     const verse = this.previousVerse;
@@ -121,7 +126,7 @@ class Verse extends BibleEntity {
   /**
    * gets next verse in the book
    *
-   * @returns {Verse|null}
+   * @returns {Verse|null} succeeding verse in chapter
    */
   async getNext() {
     const verse = this.nextVerse;
