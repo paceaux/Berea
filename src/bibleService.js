@@ -29,21 +29,21 @@ const { RequestParameters, BibleTypes } = require('./constants');
 /**
  * @typedef BookRequestParam
  * @property {string} id id of the Bible whose book to fetch
- * @property {string} bookId id of the book to fetch
+ * @property {string} bookId id of the book to fetch (e.g. GEN)
  * @property {boolean} [includeChapters=false] Array of chapter summaries should be in the results.
  */
 
 /**
  * @typedef ChaptersRequestParam
  * @property {string} id id of the Bible whose book to fetch
- * @property {string} bookId id of the book to fetch
+ * @property {string} chapterId id of the chapter to fetch (e.g. GEN.1)
  * @property {boolean} [includeChapters=false] An array of chapter summaries should be in the results.
  */
 
 /**
  * @typedef ChapterRequestParam
  * @property {string} id id of the Bible whose book to fetch
- * @property {string} bookId id of the book to fetch
+ * @property {string} chapterId id of the chapter to fetch (e.g. GEN.1)
  * @property {string} [contentType] html, json, text
  * @property {boolean} [includeNotes] include footnotes in content
  * @property {boolean} [includeTitles] include footnotes in content
@@ -57,7 +57,21 @@ const { RequestParameters, BibleTypes } = require('./constants');
 /**
  * @typedef PassageRequestParam
  * @property {string} id id of the Bible whose book to fetch
- * @property {string} passageId id of the book to fetch
+ * @property {string} passageId id of the passage to fetch (e.g. GEN.1.1-GEN.2.20)
+ * @property {string} [contentType=html] html, json, text
+ * @property {boolean} [includeNotes] include footnotes in content
+ * @property {boolean} [includeTitles=true] include footnotes in content
+ * @property {boolean} [includeChapterNumbers=false] include chapter numbers in content
+ * @property {boolean} [includeVerseNumbers=false] include verse numbers in content
+ * @property {boolean} [includeVerseSpans=false] include spans that wrap verse numbers and verse text for bible content
+ * @property {Array<string>} [parallels] comma separated list of bibleIds
+ * @property {boolean} [useOrgId=false] Use the supplied id(s) to match the verseOrgId instead of verseId.
+ */
+
+/**
+ * @typedef VerseRequestParam
+ * @property {string} id id of the Bible whose book to fetch
+ * @property {string} verseId id of the verse to fetch (e.g. GEN.1.1)
  * @property {string} [contentType=html] html, json, text
  * @property {boolean} [includeNotes] include footnotes in content
  * @property {boolean} [includeTitles=true] include footnotes in content
