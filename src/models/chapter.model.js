@@ -105,6 +105,8 @@ class Chapter extends BibleEntity {
     try {
       await chapter.refreshData();
     } catch (getChapterError) {
+      // this doesn't return. Want to surface the error somehow
+      // eslint-disable-next-line no-console
       console.error(getChapterError);
     }
 
@@ -123,6 +125,8 @@ class Chapter extends BibleEntity {
     try {
       await chapter.refreshData();
     } catch (getChapterError) {
+      // this doesn't return. Want to surface the error somehow
+      // eslint-disable-next-line no-console
       console.error(getChapterError);
     }
 

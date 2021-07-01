@@ -117,6 +117,8 @@ class Verse extends BibleEntity {
     try {
       await verse.refreshData();
     } catch (getVerseError) {
+      // this doesn't return. Want to surface the error somehow
+      // eslint-disable-next-line no-console
       console.error(getVerseError);
     }
 
@@ -135,6 +137,8 @@ class Verse extends BibleEntity {
     try {
       await verse.refreshData();
     } catch (getVerseError) {
+      // this doesn't return. Want to surface the error somehow
+      // eslint-disable-next-line no-console
       console.error(getVerseError);
     }
 

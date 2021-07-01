@@ -324,7 +324,6 @@ class BibleService {
         });
         result = response.data.data;
       } catch (getError) {
-        console.log(getError);
         result = getError;
       }
       return result;
@@ -343,7 +342,6 @@ class BibleService {
         const response = await axios.get(`/${this.bibleType}/${id}`);
         result = response.data.data;
       } catch (getError) {
-        console.log(getError);
         result = getError;
       }
       return result;
@@ -371,7 +369,6 @@ class BibleService {
         });
         result = response.data.data;
       } catch (getError) {
-        console.log(getError);
         result = getError;
       }
       return result;
@@ -408,7 +405,6 @@ class BibleService {
         });
         result = response.data.data;
       } catch (getError) {
-        console.log(getError);
         result = getError;
       }
       return result;
@@ -447,7 +443,6 @@ class BibleService {
 
         result = response.data.data;
       } catch (getError) {
-        console.log(getError);
         result = getError;
       }
       return result;
@@ -484,7 +479,6 @@ class BibleService {
 
         result = response.data.data;
       } catch (getError) {
-        console.log(getError);
         result = getError;
       }
       return result;
@@ -521,7 +515,6 @@ class BibleService {
 
         result = response.data.data;
       } catch (getError) {
-        console.log(getError);
         result = getError;
       }
       return result;
@@ -560,7 +553,6 @@ class BibleService {
 
         result = response.data.data;
       } catch (getError) {
-        console.log(getError);
         result = getError;
       }
       return result;
@@ -599,7 +591,6 @@ class BibleService {
 
         result = response.data.data;
       } catch (getError) {
-        console.log(getError);
         result = getError;
       }
       return result;

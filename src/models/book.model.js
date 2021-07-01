@@ -61,7 +61,6 @@ class Book extends BibleEntity {
         const chapters = await this.bibleService.getChaptersFromBook(request);
         result = chapters.map((chapter) => new Chapter(chapter, this.bible));
       } catch (getError) {
-        console.log(getError);
         result = getError;
       }
 

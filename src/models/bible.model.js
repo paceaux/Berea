@@ -99,7 +99,6 @@ class Bible extends Entity {
         const books = await this.bibleService.getBooks(request);
         result = books.map((book) => new Book(book, this));
       } catch (getError) {
-        console.log(getError);
         result = getError;
       }
       return result;
@@ -136,7 +135,6 @@ class Bible extends Entity {
         const data = await this.bibleService.getBook(request);
         result = new Book(data, this);
       } catch (getError) {
-        console.log(getError);
         result = getError;
       }
       return result;
@@ -156,7 +154,6 @@ class Bible extends Entity {
         const data = await this.bibleService.getChapter(request);
         result = new Chapter(data, this);
       } catch (getError) {
-        console.log(getError);
         result = getError;
       }
       return result;
@@ -176,7 +173,6 @@ class Bible extends Entity {
         const data = await this.bibleService.getPassage(request);
         result = new Passage(data, this);
       } catch (getError) {
-        console.log(getError);
         result = getError;
       }
       return result;
@@ -196,7 +192,6 @@ class Bible extends Entity {
         const data = await this.bibleService.getVerse(request);
         result = new Verse(data, this);
       } catch (getError) {
-        console.log(getError);
         result = getError;
       }
       return result;
