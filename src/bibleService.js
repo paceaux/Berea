@@ -83,7 +83,7 @@ const { RequestParameters, BibleTypes } = require('./constants');
  */
 
 /**
- * @typedef Bible
+ * @typedef BibleResponse
  * @property {string} id unique identifier of the bible
  * @property {string} dblId not sure. Similar to id, but without trailing -01
  * @property {string} abbreviation 3-letter common abbreviation (e.g. ASV, KJV, NIV)
@@ -103,17 +103,17 @@ const { RequestParameters, BibleTypes } = require('./constants');
  */
 
 /**
- * @typedef Book
+ * @typedef BookResponse
  * @property {string} id 3-letter identifier of the book
  * @property {string} bibleId id of the bible
  * @property {string} abbreviation user readable abbreviation
  * @property {string} name name of the book
  * @property {string} nameLong extended name
- * @property {Array<ChapterSummary>} chapters Small details of the chapters within the book
+ * @property {Array<ChapterSummaryResponse>} chapters Small details of the chapters within the book
  */
 
 /**
- * @typedef ChapterSummary chapter data without verses
+ * @typedef ChapterSummaryResponse chapter data without verses
  * @property {string} id 3-letter identifier for book and integer (e.g. GEN.1)
  * @property {string} bibleId id of the containing bible
  * @property {string} number integer; chapter number
@@ -123,7 +123,7 @@ const { RequestParameters, BibleTypes } = require('./constants');
  */
 
 /**
- * @typedef Chapter chapter data with verse info
+ * @typedef ChapterResponse chapter data with verse info
  * @property {string} id 3-letter identifier for book and integer (e.g. GEN.1)
  * @property {string} bibleId id of the containing bible
  * @property {string} number integer; chapter number
@@ -137,7 +137,7 @@ const { RequestParameters, BibleTypes } = require('./constants');
  */
 
 /**
- * @typedef VerseSummary
+ * @typedef VerseSummaryResponse
  * @property {string} id 3-letter identifier for book and integer (e.g. GEN.1.1)
  * @property {string} bibleId id of the containing bible
  * @property {string} bookId 3-letter identifier for book
@@ -147,7 +147,7 @@ const { RequestParameters, BibleTypes } = require('./constants');
  */
 
 /**
- * @typedef Passage
+ * @typedef PassageResponse
  * @property {string} id 3-letter identifier for book and integer (e.g. GEN.1.1-GEN.2.1)
  * @property {string} bibleId id of the containing bible
  * @property {string} orgId no idea
@@ -158,7 +158,7 @@ const { RequestParameters, BibleTypes } = require('./constants');
  */
 
 /**
- * @typedef Verse
+ * @typedef VerseResponse
  * @property {string} id 3-letter identifier for book and integer (e.g. GEN.1)
  * @property {string} bibleId id of the containing bible
  * @property {string} bookId 3-letter identifier for book
@@ -312,7 +312,7 @@ class BibleService {
 
     /**
      * @param {BiblesRequestParam} [request] options to send
-     * @returns {Promise<Array<Bible>>} An array of bibles
+     * @returns {Promise<Array<BibleResponse>>} An array of bibles
      */
     async getBibles(request) {
       const { axios } = this;
@@ -331,7 +331,7 @@ class BibleService {
 
     /**
      * @param  {string} id Gets Bible by Id
-     * @returns {Promise<Bible>} Bible data
+     * @returns {Promise<BibleResponse>} Bible data
      */
     async getBible(id) {
       if (!id) throw Error('id must be provided');
@@ -349,7 +349,7 @@ class BibleService {
 
     /**
      * @param  {BooksRequestParam|string} request id of the bible or object containing id and parameters
-     * @returns {Promise<Array<Book>>} an array of bookdata
+     * @returns {Promise<Array<BookResponse>>} an array of bookdata
      */
     async getBooks(request) {
       const { axios } = this;
@@ -377,7 +377,7 @@ class BibleService {
     /**
      * @param  {string|BookRequestParam} request id of the bible or object containing id, bookId, and parameters
      * @param  {string} [bookIdStr] id of the book to fetch. Not required if the request is an object.
-     * @returns {Promise<Book>} book data
+     * @returns {Promise<BookResponse>} book data
      */
     async getBook(request, bookIdStr) {
       const { axios } = this;
@@ -415,7 +415,7 @@ class BibleService {
      *
      * @param  {ChaptersRequestParam|string} request id of the bible or object containing id, bookId, and parameters
      * @param  {string} [bookIdStr=''] id for the book. Not needed if request is an object and has bookId
-     * @returns {Promise<Array<ChapterSummary>>} Chapterdata
+     * @returns {Promise<Array<ChapterSummaryResponse>>} Chapterdata
      */
     async getChaptersFromBook(request, bookIdStr) {
       let id;
@@ -451,7 +451,7 @@ class BibleService {
     /**
      * @param  {ChapterRequestParam|string} request options object
      * @param  {string} chapterIdStr chapter id. not needed if request has chapterId
-     * @returns {Promise<Chapter>} The chapter
+     * @returns {Promise<ChapterResponse>} The chapter
      */
     async getChapter(request, chapterIdStr) {
       let id;
@@ -487,7 +487,7 @@ class BibleService {
     /**
      * @param  {PassageRequestParam|string} request options or string with bible id
      * @param  {string} passageIdStr id of passage (e.g. GEN.1.1-GEN.2.2)
-     * @returns {Promise<Passage>} passageData
+     * @returns {Promise<PassageResponse>} passageData
      */
     async getPassage(request, passageIdStr) {
       let id;
@@ -525,7 +525,7 @@ class BibleService {
      *
      * @param  {ChaptersRequestParam|string} request id of the bible or object containing id, bookId, and parameters
      * @param  {string} [chapterIdStr] chapterId (e.g. GEN.1)
-     * @returns {Promise<Array<Chapter>>} chapterdata
+     * @returns {Promise<Array<ChapterResponse>>} chapterdata
      */
     async getVersesFromChapter(request, chapterIdStr) {
       let id;
@@ -563,7 +563,7 @@ class BibleService {
      *
      * @param  {VerseRequestParam|string} request id of the bible or object containing id, bookId, and parameters
      * @param  {string} [verseIdStr] verseId (e.g. GEN.1.1) not needed if the request parameter has verseId
-     * @returns {Promise<Array<Verse>>} versedata
+     * @returns {Promise<Array<VerseResponse>>} versedata
      */
     async getVerse(request, verseIdStr) {
       let id;

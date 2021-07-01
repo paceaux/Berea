@@ -66,13 +66,22 @@ const Verse = require('./verse.model');
  * @property {Array<string>} [parallels] comma separated list of bibleIds
  * @property {boolean} [useOrgId=false] Use the supplied id(s) to match the verseOrgId instead of verseId.
  */
+
+/**
+ * @typedef {import('../bibleService').BibleResponse} BibleResponse
+ */
+
 class Bible extends Entity {
-    /**
-     * All books in the bible. populated after running refreshData()
-     *
-     * @type {Array<string>}
-     * @public
-     */
+  /**
+   * @property {BibleResponse} data full data from api
+   */
+
+  /**
+   * All books in the bible. populated after running refreshData()
+   *
+   * @type {Array<Book>}
+   * @public
+   */
     books = [];
 
     /**
@@ -89,7 +98,7 @@ class Bible extends Entity {
      * Gets all of the books associated with the Bible
      *
      * @param  {BooksRequestParam} params parameters for retrieving books
-     * @returns {Array<Book>} Shallow copies of books
+     * @returns {Promise<Array<Book>>} Shallow copies of books
      */
     async getBooks(params) {
       const request = { ...params, id: this.id };
@@ -104,6 +113,13 @@ class Bible extends Entity {
       return result;
     }
 
+    /**
+     * formats a request object so it to have the bible's id as id
+     *
+     * @param  {object} params parameters to submit to a request
+     * @param  {string} requestId dude idk
+     * @returns {object} request object with bibleId as id
+     */
     prepareRequest(params, requestId) {
       const request = { id: this.id };
       if (typeof params === 'object') {
@@ -125,7 +141,7 @@ class Bible extends Entity {
      * Gets a book from the Bible
      *
      * @param  {BookRequestParam|string} params either an object with id or bookId, or a string that is the bookId
-     * @returns {Book} Data for book of the bible
+     * @returns {Promise<Book>} Data for book of the bible
      */
     async getBook(params) {
       let result = null;
@@ -144,7 +160,7 @@ class Bible extends Entity {
      * Gets a chapter by Id from the Bible
      *
      * @param  {ChapterRequestParam|string} params options to pass into request
-     * @returns {Chapter} fully-populated chapter object
+     * @returns {Promise<Chapter>} fully-populated chapter object
      */
     async getChapter(params) {
       let result = null;
@@ -163,7 +179,7 @@ class Bible extends Entity {
      * Gets a passage (range of verses)
      *
      * @param  {PassageRequestParam|string} params options to pass into request
-     * @returns {Passage} fully-populated chapter object
+     * @returns {Promise<Passage>} fully-populated chapter object
      */
     async getPassage(params) {
       let result = null;
@@ -182,7 +198,7 @@ class Bible extends Entity {
      * Gets a verse by Id from the Bible
      *
      * @param  {VerseRequestParam|string} params options to pass into request
-     * @returns {Verse} fully-populated verse object
+     * @returns {Promise<Verse>} fully-populated verse object
      */
     async getVerse(params) {
       let result = null;

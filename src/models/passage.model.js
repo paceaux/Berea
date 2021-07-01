@@ -2,9 +2,12 @@ const BibleEntity = require('./bible-entity.model');
 const Chapter = require('./chapter.model');
 
 /**
- * @type {import('../bibleService').Passage}
+ * @typedef {import('../bibleService').PassageResponse} PassageResponse
  */
 class Passage extends BibleEntity {
+  /**
+   * @property {PassageResponse} data full data from api
+   */
   /**
    * Name of book and chapter, or undefined if data not refreshed
    *
