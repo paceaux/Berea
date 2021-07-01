@@ -23,9 +23,15 @@
         "it": true
     },
     "rules": {
-        "max-len": ["error", {"code": 130 }]
+        "max-len": ["error", {"code": 130 }],
+        "valid-jsdoc": "off"
     },
     "plugins": [
         "jsdoc"
-    ]
+    ],
+    "settings": {
+        "jsdoc": {
+            "mode": "typescript"
+        }
+    }
 }                                          
