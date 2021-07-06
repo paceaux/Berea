@@ -13,7 +13,7 @@ This includes a `bibleService` which is a promised-wrapped library and convenien
 4. Create a new application
 5. After it's created you will need the credentials
 
-# Documentation
+# Usage
 This is thoroughly documented via JSDoc and a [Github Wiki](https://github.com/paceaux/BibleApi/wiki)
 
 Using the API and this library amounts to three steps:
@@ -24,9 +24,10 @@ Using the API and this library amounts to three steps:
 
 The Bible Id that you get is needed to get _any_ data from the API. For this reason, there exists a whole ORM that you can use which turns books, chapters, verses, and passages into objects that let you request data when you want it. 
 
-But you can't get there until you have at least a service. So let's explore how that works. 
+But you can't get there until you have at least a service. 
 
 ## Creating a new Bible Service
+You may want multiple services if you plan on using different versions of the api, or fetching text and audio. 
 
 ### Basic Example
 ```
@@ -53,6 +54,13 @@ const {BibleService} = require('bibleapi');
 
 const service = new BibleService('someLongToken', 1, 'audio');
 ```
+
+## Setting options in requests
+All of the [request options are documented](https://github.com/paceaux/BibleApi/wiki/Request-Parameters). One notable difference between how this library works is that _options can be camelCased_.
+
+While the [API](https://scripture.api.bible/livedocs#/) will require `content-type` if you want to set options, you can send `contentType`. 
+
+Look in `src/constants/requestParameters.js` for all of the aliases. `RequestParameters` is also set as a static property on the `BibleService` class. 
 
 ## Getting Bibles
 Before getting verses, chapters, or passages, you need a `bibleId`. The only way to know _that_ is to look at all of the Bibles, first. 
