@@ -523,9 +523,9 @@ class BibleService {
     /**
      * Gets verses from a single chapter
      *
-     * @param  {ChaptersRequestParam|string} request id of the bible or object containing id, bookId, and parameters
+     * @param  {VerseRequestParam|string} request id of the bible or object containing id, bookId, and parameters
      * @param  {string} [chapterIdStr] chapterId (e.g. GEN.1)
-     * @returns {Promise<Array<ChapterResponse>>} chapterdata
+     * @returns {Promise<Array<VerseSummaryResponse>>} chapterdata
      */
     async getVersesFromChapter(request, chapterIdStr) {
       let id;
