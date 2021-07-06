@@ -202,6 +202,18 @@ async function doThings(){
 }
 ```
 
+### Get Range of verses
+* [Request Options](https://github.com/paceaux/BibleApi/wiki/Request-Parameters#PassageRequestParam)
+* [Response](https://github.com/paceaux/BibleApi/wiki/Response-Types#passageresponse)
+
+Note: This is an alias for `getPassage()`
+
+```
+async function doThings(){
+  const chapter = service.getPassage('c315fa9f71d4af3a-01', 'EXO.1.1-EXO.1.20');
+}
+```
+
 
 ## Getting Passages
 About `verseId`:
@@ -221,7 +233,6 @@ e.g.
 * A Single parameter can be passed, an object, containing `id` for `bibleId` and `passageId` with additional options. 
 
 
-Note that **This only returns one verse**, for multiples you want a passage. 
 ```
 async function doThings(){
   const chapter = service.getPassage('c315fa9f71d4af3a-01', 'EXO.1.1-EXO.1.20');

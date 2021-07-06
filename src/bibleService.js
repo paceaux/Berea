@@ -284,6 +284,9 @@ class BibleService {
         if (BibleService.RequestParameters.has(k)) {
           newParams[BibleService.RequestParameters.get(k)] = v;
         }
+        if ([...BibleService.RequestParameters.values()].includes(k)) {
+          newParams[k] = v;
+        }
       });
 
       return newParams;
@@ -538,6 +541,17 @@ class BibleService {
         result = getError;
       }
       return result;
+    }
+
+    /**
+     * Alias for getPassage
+     *
+     * @param  {PassageRequestParam|string} request options or string with bible id
+     * @param  {string} passageIdStr id of passage (e.g. GEN.1.1-GEN.2.2)
+     * @returns {Promise<PassageResponse>} passageData
+     */
+    async getVerses(request, passageIdStr) {
+      return this.getPassage(request, passageIdStr);
     }
 
     /**

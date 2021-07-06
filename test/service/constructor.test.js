@@ -70,3 +70,27 @@ describe('constructor', () => {
     });
   });
 });
+describe('static methods', () => {
+  describe('hyphenate parameters', () => {
+    it('will hyphenate allowed parameters', () => {
+      const result = BibleApi.hyphenateParameters(
+        {
+          includeTitles: true,
+          contentType: 'html',
+        },
+      );
+      expect(result).toHaveProperty('include-titles', true);
+      expect(result).toHaveProperty('content-type', 'html');
+    });
+    it('leaves alone pre-hyphenated params', () => {
+      const result = BibleApi.hyphenateParameters(
+        {
+          'include-titles': true,
+          'content-type': 'html',
+        },
+      );
+      expect(result).toHaveProperty('include-titles', true);
+      expect(result).toHaveProperty('content-type', 'html');
+    });
+  });
+});
