@@ -17,6 +17,7 @@ const { RequestParameters, BibleTypes } = require('./constants');
  * @property {string} abbreviation Bible abbreviation to search for
  * @property {string} name Bible name to search for
  * @property {Array<string>} ids Comma separated list of Bible Ids to return
+ * @see {@link https://scripture.api.bible/livedocs#/Bibles/getBibles|Bibles}
  */
 
 /**
@@ -24,6 +25,7 @@ const { RequestParameters, BibleTypes } = require('./constants');
  * @property {string} id id of the Bible whose book to fetch
  * @property {boolean} [includeChapters=false] An array of chapter summaries should be in the results.
  * @property {boolean} [includeChaptersAndSections=false] Arrays of chapter summaries and sections should be in the results
+ * @see {@link https://scripture.api.bible/livedocs#/Bibles/Books/getBooks|Books}
  */
 
 /**
@@ -31,27 +33,29 @@ const { RequestParameters, BibleTypes } = require('./constants');
  * @property {string} id id of the Bible whose book to fetch
  * @property {string} bookId id of the book to fetch (e.g. GEN)
  * @property {boolean} [includeChapters=false] Array of chapter summaries should be in the results.
+ * @see {@link https://scripture.api.bible/livedocs#/Bibles/Books/getBook|Book}
  */
 
 /**
  * @typedef ChaptersRequestParam
  * @property {string} id id of the Bible whose book to fetch
  * @property {string} chapterId id of the chapter to fetch (e.g. GEN.1)
- * @property {boolean} [includeChapters=false] An array of chapter summaries should be in the results.
+ * @see {@link https://scripture.api.bible/livedocs#/Bibles/Chapters/getChapters|Chapters}
  */
 
 /**
  * @typedef ChapterRequestParam
  * @property {string} id id of the Bible whose book to fetch
  * @property {string} chapterId id of the chapter to fetch (e.g. GEN.1)
- * @property {string} [contentType] html, json, text
- * @property {boolean} [includeNotes] include footnotes in content
- * @property {boolean} [includeTitles] include footnotes in content
- * @property {boolean} [includeChapterNumbers] include chapter numbers in content
- * @property {boolean} [includeVerseNumbers] include verse numbers in content
- * @property {boolean} [includeVerseSpans] include spans that wrap verse numbers and verse text for bible content
+ * @property {string} [contentType=html] html, json, text
+ * @property {boolean} [includeNotes=false] include footnotes in content
+ * @property {boolean} [includeTitles=true] include section titles in content
+ * @property {boolean} [includeChapterNumbers=false] include chapter numbers in content
+ * @property {boolean} [includeVerseNumbers=true] include verse numbers in content
+ * @property {boolean} [includeVerseSpans=false] include spans that wrap verse numbers and verse text for bible content
  * @property {Array<string>} [parallels] comma separated list of bibleIds
  * @property {boolean} [includeChapters=false] Boolean indicating if an array of chapter summaries should be in the results.
+ * @see {@link https://scripture.api.bible/livedocs#/Bibles/Chapters/getChapter|Chapter}
  */
 
 /**
@@ -60,12 +64,20 @@ const { RequestParameters, BibleTypes } = require('./constants');
  * @property {string} passageId id of the passage to fetch (e.g. GEN.1.1-GEN.2.20)
  * @property {string} [contentType=html] html, json, text
  * @property {boolean} [includeNotes] include footnotes in content
- * @property {boolean} [includeTitles=true] include footnotes in content
+ * @property {boolean} [includeTitles=true] include section titles in content
  * @property {boolean} [includeChapterNumbers=false] include chapter numbers in content
- * @property {boolean} [includeVerseNumbers=false] include verse numbers in content
+ * @property {boolean} [includeVerseNumbers=true] include verse numbers in content
  * @property {boolean} [includeVerseSpans=false] include spans that wrap verse numbers and verse text for bible content
  * @property {Array<string>} [parallels] comma separated list of bibleIds
  * @property {boolean} [useOrgId=false] Use the supplied id(s) to match the verseOrgId instead of verseId.
+ * @see {@link https://scripture.api.bible/livedocs#/Bibles/Passages/getPassage|Passage}
+ */
+
+/**
+ * @typedef VersesRequestParam
+ * @property {string} id id of the Bible whose book to fetch
+ * @property {string} chapterId id of the chapter from which to fetch  verses (e.g. GEN)
+ * @see {@link https://scripture.api.bible/livedocs#/Bibles/Verses/getVerses|Verses}
  */
 
 /**
@@ -73,13 +85,14 @@ const { RequestParameters, BibleTypes } = require('./constants');
  * @property {string} id id of the Bible whose book to fetch
  * @property {string} verseId id of the verse to fetch (e.g. GEN.1.1)
  * @property {string} [contentType=html] html, json, text
- * @property {boolean} [includeNotes] include footnotes in content
- * @property {boolean} [includeTitles=true] include footnotes in content
+ * @property {boolean} [includeNotes=false] include footnotes in content
+ * @property {boolean} [includeTitles=true] include section titles in content
  * @property {boolean} [includeChapterNumbers=false] include chapter numbers in content
  * @property {boolean} [includeVerseNumbers=false] include verse numbers in content
  * @property {boolean} [includeVerseSpans=false] include spans that wrap verse numbers and verse text for bible content
  * @property {Array<string>} [parallels] comma separated list of bibleIds
  * @property {boolean} [useOrgId=false] Use the supplied id(s) to match the verseOrgId instead of verseId.
+ * @see {@link https://scripture.api.bible/livedocs#/Bibles/Verses/getVerse|Verse}
  */
 
 /**
@@ -100,6 +113,7 @@ const { RequestParameters, BibleTypes } = require('./constants');
  * @property {Date} updatedAt last time content was updated
  * @property {string} relatedDbl not sure
  * @property {Array<object>} audioBibles audio versions of this bible
+ * @see {@link https://scripture.api.bible/livedocs#/Bibles/getBibles|Bibles}
  */
 
 /**
@@ -110,6 +124,7 @@ const { RequestParameters, BibleTypes } = require('./constants');
  * @property {string} name name of the book
  * @property {string} nameLong extended name
  * @property {Array<ChapterSummaryResponse>} chapters Small details of the chapters within the book
+ * @see {@link https://scripture.api.bible/livedocs#/Bibles/Books/getBooks|Books}
  */
 
 /**
@@ -120,6 +135,7 @@ const { RequestParameters, BibleTypes } = require('./constants');
  * @property {string} bookId 3-letter identifier for book
  * @property {string} content text
  * @property {string} reference reader friendly version (e.g. Genesis 1)
+ * @see {@link https://scripture.api.bible/livedocs#/Bibles/Chapters/getChapters|Chapters}
  */
 
 /**
@@ -134,6 +150,7 @@ const { RequestParameters, BibleTypes } = require('./constants');
  * @property {string} copyright copyright information
  * @property {object} next chapter number and ID of the next chapter in the book
  * @property {object} previous chapter number and ID of the previous chapter in the book
+ * @see {@link https://scripture.api.bible/livedocs#/Bibles/Chapters/getChapter|Chapter}
  */
 
 /**
@@ -144,6 +161,7 @@ const { RequestParameters, BibleTypes } = require('./constants');
  * @property {string} chapterId 3-letter book name with chapter number (e.g. GEN.1)
  * @property {string} orgId no idea
  * @property {string} reference reader friendly version (e.g. Genesis 1.1)
+ * @see {@link https://scripture.api.bible/livedocs#/Bibles/Verses/getVerses|Verses}
  */
 
 /**
@@ -155,6 +173,7 @@ const { RequestParameters, BibleTypes } = require('./constants');
  * @property {string} content text content
  * @property {number} verseCount quantity of verses
  * @property {string} copyright copyright information
+ * @see {@link https://scripture.api.bible/livedocs#/Bibles/Passages/getPassage|Passage}
  */
 
 /**
@@ -170,6 +189,7 @@ const { RequestParameters, BibleTypes } = require('./constants');
  * @property {string} copyright copyright information
  * @property {object} next verse number and ID of the next verse in the book
  * @property {object} previous verse number and ID of the previous verse in the book
+ * @see {@link https://scripture.api.bible/livedocs#/Bibles/Verses/getVerse|Verse}
  */
 
 class BibleService {
@@ -523,7 +543,7 @@ class BibleService {
     /**
      * Gets verses from a single chapter
      *
-     * @param  {VerseRequestParam|string} request id of the bible or object containing id, bookId, and parameters
+     * @param  {VersesRequestParam|string} request id of the bible or object containing id, bookId, and parameters
      * @param  {string} [chapterIdStr] chapterId (e.g. GEN.1)
      * @returns {Promise<Array<VerseSummaryResponse>>} chapterdata
      */
