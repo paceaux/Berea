@@ -7,7 +7,7 @@ This includes a `bibleService` which is a promised-wrapped library and convenien
 * NPM 6.14.12 
 
 ### API Token from Scripture.API.Bible
-1. go to [https.scripture.api.bible](scripture.api.bible)
+1. go to [https://scripture.api.bible](scripture.api.bible)
 2. Sign up
 3. Go to Applications
 4. Create a new application
