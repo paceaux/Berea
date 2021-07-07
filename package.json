@@ -10,7 +10,8 @@
     "pretest": "npm run --silent lint",
     "test": "npm run --silent tests-only",
     "build": "babel src --out-dir build",
-    "clean": "rm -rf build"
+    "clean": "rm -rf build",
+    "doc": "node_modules/.bin/jsdoc -c jsdoc.config.json --verbose"
   },
   "repository": {
     "type": "git",
@@ -50,7 +51,8 @@
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-jsdoc": "^35.4.0",
     "jest": "^27.0.1",
-    "jsdoc-tsimport-plugin": "^1.0.5"
+    "jsdoc-tsimport-plugin": "^1.0.5",
+    "minami": "^1.2.3"
   },
   "engines": {
     "node": ">= 8"

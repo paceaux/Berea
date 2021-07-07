@@ -1,0 +1,29 @@
+{
+    "tags": {
+        "allowUnknownTags": true
+    },
+    "source": {
+        "include": [
+          "src/models"
+        ],
+        "exclude": [
+          "index.js"
+        ],
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "plugins": [
+        "node_modules/jsdoc-tsimport-plugin/index.js",
+        "plugins/markdown"
+    ],
+    "opts": {
+      "destination": "./out/"
+    },
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false,
+        "default": {
+            "outputSourceFiles": true
+        }
+    }
+}
