@@ -5,70 +5,26 @@ const Passage = require('./passage.model');
 const Verse = require('./verse.model');
 
 /**
- * @typedef BooksRequestParam
- * @property {string} id id of the Bible whose book to fetch
- * @property {boolean} [includeChapters=false] An array of chapter summaries should be in the results.
- * @property {boolean} [includeChaptersAndSections=false] Arrays of chapter summaries and sections should be in the results
+ * @typedef {import('../bibleService.js').BooksRequestParam} BooksRequestParam
+ */
+/**
+ * @typedef {import('../bibleService.js').BookRequestParam} BookRequestParam
+ */
+/**
+ * @typedef {import('../bibleService.js').chaptersRequestParam} chaptersRequestParam
+ */
+/**
+ * @typedef {import('../bibleService.js').chapterRequestParam} chapterRequestParam
+ */
+/**
+ * @typedef {import('../bibleService.js').passageRequestParam} passageRequestParam
+ */
+/**
+ * @typedef {import('../bibleService.js').verseRequestParam} verseRequestParam
  */
 
 /**
- * @typedef BookRequestParam
- * @property {string} id id of the Bible whose book to fetch
- * @property {string} bookId id of the book to fetch (e.g. GEN)
- * @property {boolean} [includeChapters=false] Array of chapter summaries should be in the results.
- */
-
-/**
- * @typedef ChaptersRequestParam
- * @property {string} id id of the Bible whose book to fetch
- * @property {string} chapterId id of the chapter to fetch (e.g. GEN.1)
- * @property {boolean} [includeChapters=false] An array of chapter summaries should be in the results.
- */
-
-/**
- * @typedef ChapterRequestParam
- * @property {string} id id of the Bible whose book to fetch
- * @property {string} chapterId id of the chapter to fetch (e.g. GEN.1)
- * @property {string} [contentType] html, json, text
- * @property {boolean} [includeNotes] include footnotes in content
- * @property {boolean} [includeTitles] include footnotes in content
- * @property {boolean} [includeChapterNumbers] include chapter numbers in content
- * @property {boolean} [includeVerseNumbers] include verse numbers in content
- * @property {boolean} [includeVerseSpans] include spans that wrap verse numbers and verse text for bible content
- * @property {Array<string>} [parallels] comma separated list of bibleIds
- * @property {boolean} [includeChapters=false] Boolean indicating if an array of chapter summaries should be in the results.
- */
-
-/**
- * @typedef PassageRequestParam
- * @property {string} id id of the Bible whose book to fetch
- * @property {string} passageId id of the passage to fetch (e.g. GEN.1.1-GEN.2.20)
- * @property {string} [contentType=html] html, json, text
- * @property {boolean} [includeNotes] include footnotes in content
- * @property {boolean} [includeTitles=true] include footnotes in content
- * @property {boolean} [includeChapterNumbers=false] include chapter numbers in content
- * @property {boolean} [includeVerseNumbers=false] include verse numbers in content
- * @property {boolean} [includeVerseSpans=false] include spans that wrap verse numbers and verse text for bible content
- * @property {Array<string>} [parallels] comma separated list of bibleIds
- * @property {boolean} [useOrgId=false] Use the supplied id(s) to match the verseOrgId instead of verseId.
- */
-
-/**
- * @typedef VerseRequestParam
- * @property {string} id id of the Bible whose book to fetch
- * @property {string} verseId id of the verse to fetch (e.g. GEN.1.1)
- * @property {string} [contentType=html] html, json, text
- * @property {boolean} [includeNotes] include footnotes in content
- * @property {boolean} [includeTitles=true] include footnotes in content
- * @property {boolean} [includeChapterNumbers=false] include chapter numbers in content
- * @property {boolean} [includeVerseNumbers=false] include verse numbers in content
- * @property {boolean} [includeVerseSpans=false] include spans that wrap verse numbers and verse text for bible content
- * @property {Array<string>} [parallels] comma separated list of bibleIds
- * @property {boolean} [useOrgId=false] Use the supplied id(s) to match the verseOrgId instead of verseId.
- */
-
-/**
- * @typedef {import('../bibleService').BibleResponse} BibleResponse
+ * @typedef {import('../bibleService.js').BibleResponse} BibleResponse
  */
 
 class Bible extends Entity {
