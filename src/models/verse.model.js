@@ -2,7 +2,13 @@ const BibleEntity = require('./bible-entity.model');
 const Chapter = require('./chapter.model');
 
 /**
- * @typedef {import('../bibleService').VerseResponse} VerseResponse
+ * @typedef {import('../bibleService.js').VerseResponse} VerseResponse
+ */
+/**
+ * Verse of a Chapter
+ *
+ * @class Verse
+ * @augments BibleEntity
  */
 class Verse extends BibleEntity {
   /**

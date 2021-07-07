@@ -2,7 +2,13 @@ const BibleEntity = require('./bible-entity.model');
 const Chapter = require('./chapter.model');
 
 /**
- * @typedef {import('../bibleService').PassageResponse} PassageResponse
+ * @typedef {import('../bibleService.js').PassageResponse} PassageResponse
+ */
+/**
+ * Passage of a Bible
+ *
+ * @class Passage
+ * @augments BibleEntity
  */
 class Passage extends BibleEntity {
   /**

@@ -258,12 +258,12 @@ class BibleService {
     }
 
     /**
-     * @type {import('./constants').BibleTypes}
+     * @type {import('./constants/index.js').BibleTypes}
      */
     static BibleTypes = BibleTypes;
 
     /**
-     * @type {import('./constants').RequestParameters}
+     * @type {import('./constants/index.js').RequestParameters}
      */
     static RequestParameters = RequestParameters;
 

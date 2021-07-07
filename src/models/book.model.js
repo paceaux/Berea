@@ -1,8 +1,14 @@
 const BibleEntity = require('./bible-entity.model');
 const Chapter = require('./chapter.model');
+/**
+ * @typedef {import('../bibleService.js').BookResponse} BookResponse
+ */
 
 /**
- * @typedef {import('../bibleService').BookResponse} BookResponse
+ * Book of a Bible
+ *
+ * @class Book
+ * @augments BibleEntity
  */
 class Book extends BibleEntity {
   /**
@@ -60,7 +66,7 @@ class Book extends BibleEntity {
   /**
    * Retrieves all chapters for this book
    *
-   * @param  {import('../bibleService').ChapterRequestParam} [params] request parameters
+   * @param  {import('../bibleService.js').ChapterRequestParam} [params] request parameters
    * @returns {Promise<Array<Chapter>>} an array of chapters in the book
    */
   async getChapters(params = {}) {

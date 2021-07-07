@@ -2,7 +2,13 @@ const Entity = require('./entity.model');
 const Bible = require('./bible.model');
 
 /**
- * @typedef {import('../bible.model')} Bible
+ * @typedef {import('../bible.model.js')} Bible
+ */
+/**
+ * Abstract class for any item within context of a Bible
+ *
+ * @class BibleEntity
+ * @augments Entity
  */
 class BibleEntity extends Entity {
   /**
