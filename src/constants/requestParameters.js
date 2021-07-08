@@ -29,6 +29,15 @@ const RequestParameters = new Map([
   ['verseSpans', 'include-verse-spans'],
   ['useOrgId', 'use-org-id'],
   ['orgId', 'use-org-id'],
+  ['q', 'query'],
+  ['l', 'limit'],
+  ['o', 'offset'],
+  ['s', 'sort'],
+  ['r', 'range'],
+  ['passage', 'range'],
+  ['passages', 'range'],
+  ['f', 'fuzziness'],
+
 ]);
 
 module.exports = RequestParameters;

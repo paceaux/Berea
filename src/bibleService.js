@@ -96,6 +96,25 @@ const { RequestParameters, BibleTypes } = require('./constants');
  */
 
 /**
+ * @typedef SearchRequestParam
+ * @property {string} id id of the Bible to search
+ * @property {string} query Search keywords or passage reference. Supported wildcards are * and ?.
+ * @property {string} q Search keywords or passage reference. Supported wildcards are * and ?.
+ * @property {number} [limit=10] Integer limit for how many matching results to return.
+ * @property {number} [l=10] Integer limit for how many matching results to return.
+ * @property {number} [offset] used to paginate results
+ * @property {number} [o] used to paginate results
+ * @property {'relevance'|'canonical'|'reverse-canonical'} [sort='relevance'] Sort order of results.
+ * @property {'relevance'|'canonical'|'reverse-canonical'} [s='relevance'] Sort order of results.
+ * @property {string} range Comma separated passage ids the search will be limited to.
+ * @property {string} r Comma separated passage ids the search will be limited to.
+ * @property {string} passage Comma separated passage ids the search will be limited to.
+ * @property {string} passages Comma separated passage ids the search will be limited to.
+ * @property {'AUTO'|0|1|2}  fuzziness of a search to account for misspellings.
+ * @property {'AUTO'|0|1|2}  f of a search to account for misspellings.
+ */
+
+/**
  * @typedef BibleResponse
  * @property {string} id unique identifier of the bible
  * @property {string} dblId not sure. Similar to id, but without trailing -01
@@ -190,6 +209,17 @@ const { RequestParameters, BibleTypes } = require('./constants');
  * @property {object} next verse number and ID of the next verse in the book
  * @property {object} previous verse number and ID of the previous verse in the book
  * @see {@link https://scripture.api.bible/livedocs#/Bibles/Verses/getVerse|Verse}
+ */
+
+/**
+ * @typedef SearchResponse
+ * @property {string} query Search keywords or passage reference. Supported wildcards are * and ?.
+ * @property {number} [limit=10] Integer limit for how many matching results to return.
+ * @property {number} [offset] used to paginate results
+ * @property {number} total amount of results
+ * @property {number} verseCount amount of verses
+ * @property {Array<VerseResponse>} verses the matching verses
+ * @property {Array<PassageResponse>} passages the matching passages
  */
 
 class BibleService {
@@ -620,6 +650,45 @@ class BibleService {
 
       try {
         const response = await this.axios.get(`/${this.bibleType}/${id}/verses/${verseId}`, {
+          params,
+        });
+
+        result = response.data.data;
+      } catch (getError) {
+        result = getError;
+      }
+      return result;
+    }
+
+    /**
+     * Get search Results
+     *
+     * @param  {SearchRequestParam|string} request id of the bible or object containing id, bookId, and parameters
+     * @param  {string} [queryString]  Search keywords or passage reference. Supported wildcards are * and ?.
+     * @returns {Promise<SearchResponse>} search response
+     */
+    async search(request, queryString) {
+      let id;
+      let query;
+      let params = {};
+      let result = null;
+
+      if (typeof request === 'string') {
+        if (!queryString) throw new Error('bibleId provided as string without query as second parameter');
+        query = queryString;
+        id = request;
+        params = { query };
+      }
+
+      if (typeof request === 'object') {
+        const temp = BibleService.getRoutesAndParamFromRequest(request);
+        id = temp.id;
+        params = temp.params;
+        delete params.id;
+      }
+
+      try {
+        const response = await this.axios.get(`/${this.bibleType}/${id}/search`, {
           params,
         });
 
