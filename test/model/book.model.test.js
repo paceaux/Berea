@@ -68,4 +68,16 @@ describe('Model: Book', () => {
       expect(chapters[0]).toBeInstanceOf(Chapter);
     });
   });
+  describe('search', () => {
+    describe('it finds stuff only in the book', () => {
+      const book = new Book('GEN', bible);
+
+      it('can search by string', async () => {
+        const results = await book.search('Cain');
+
+        expect(results).toBeInstanceOf(Object);
+        expect(results.total).toEqual(22);
+      });
+    });
+  });
 });

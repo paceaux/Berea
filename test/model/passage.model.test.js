@@ -93,4 +93,16 @@ describe('Model: Passage', () => {
       expect(firstChapter.data).toHaveProperty('verseCount');
     });
   });
+  describe('search', () => {
+    describe('it finds stuff only in the Chapter', () => {
+      const book = new Passage('GEN.1.1-GEN.4.20', bible);
+
+      it('can search by string', async () => {
+        const results = await book.search('Cain');
+
+        expect(results).toBeInstanceOf(Object);
+        expect(results.total).toEqual(11);
+      });
+    });
+  });
 });

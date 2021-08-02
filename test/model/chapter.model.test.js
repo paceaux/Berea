@@ -139,4 +139,16 @@ describe('Model: Chapter', () => {
       expect(chapter.verseCount).toEqual(0);
     });
   });
+  describe('search', () => {
+    describe('it finds stuff only in the Chapter', () => {
+      const chapter = new Chapter('GEN.1', bible);
+
+      it('can search by string', async () => {
+        const results = await chapter.search('Cain');
+
+        expect(results).toBeInstanceOf(Object);
+        expect(results.total).toEqual(0);
+      });
+    });
+  });
 });

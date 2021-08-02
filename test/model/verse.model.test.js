@@ -117,4 +117,16 @@ describe('Model: Verse', () => {
       expect(chapter.previousVerse).toBeNull();
     });
   });
+  describe('search', () => {
+    describe('it finds stuff only in the Chapter', () => {
+      const verse = new Verse('GEN.4.13', bible);
+
+      it('can search by string', async () => {
+        const results = await verse.search('Cain');
+
+        expect(results).toBeInstanceOf(Object);
+        expect(results.total).toEqual(1);
+      });
+    });
+  });
 });
