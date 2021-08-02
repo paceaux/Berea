@@ -205,4 +205,14 @@ describe('Model: Bible', () => {
       expect(verse).toBeInstanceOf(Verse);
     });
   });
+  describe('it finds stuff in the whole Bible', () => {
+    const ASV = new Bible('06125adad2d5898a-01', service);
+
+    it('can search by string', async () => {
+      const results = await ASV.search('Cain');
+
+      expect(results).toBeInstanceOf(Object);
+      expect(results.total).toEqual(228);
+    });
+  });
 });
