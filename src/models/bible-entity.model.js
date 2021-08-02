@@ -53,6 +53,7 @@ class BibleEntity extends Entity {
   /**
    * @param  {string|SearchRequestParam} searchParams string or object for search request
    * @returns {import('../bibleService.js').SearchResponse} result from searching the entity
+   * @todo Set search results to return either a SearcResponse class, OR at least an array of Verses
    */
   async search(searchParams) {
     const range = this.id;
