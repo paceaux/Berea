@@ -149,6 +149,16 @@ describe('Model: Chapter', () => {
         expect(results).toBeInstanceOf(Object);
         expect(results.total).toEqual(0);
       });
+      it('can search by object', async () => {
+        const results = await chapter.search({
+          query: 'Cain',
+          limit: 25,
+        });
+
+        expect(results).toBeInstanceOf(Object);
+        expect(results.total).toEqual(0);
+        expect(results.verseCount).toEqual(0);
+      });
     });
   });
 });

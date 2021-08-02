@@ -127,6 +127,16 @@ describe('Model: Verse', () => {
         expect(results).toBeInstanceOf(Object);
         expect(results.total).toEqual(1);
       });
+      it('can search by object', async () => {
+        const results = await verse.search({
+          query: 'Cain',
+          limit: 25,
+        });
+
+        expect(results).toBeInstanceOf(Object);
+        expect(results.total).toEqual(1);
+        expect(results.verseCount).toEqual(1);
+      });
     });
   });
 });

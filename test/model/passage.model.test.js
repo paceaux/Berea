@@ -95,13 +95,23 @@ describe('Model: Passage', () => {
   });
   describe('search', () => {
     describe('it finds stuff only in the Chapter', () => {
-      const book = new Passage('GEN.1.1-GEN.4.20', bible);
+      const passage = new Passage('GEN.1.1-GEN.4.20', bible);
 
       it('can search by string', async () => {
-        const results = await book.search('Cain');
+        const results = await passage.search('Cain');
 
         expect(results).toBeInstanceOf(Object);
         expect(results.total).toEqual(11);
+      });
+      it('can search by object', async () => {
+        const results = await passage.search({
+          query: 'Cain',
+          limit: 25,
+        });
+
+        expect(results).toBeInstanceOf(Object);
+        expect(results.total).toEqual(11);
+        expect(results.verseCount).toEqual(11);
       });
     });
   });

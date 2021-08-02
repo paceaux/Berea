@@ -78,6 +78,16 @@ describe('Model: Book', () => {
         expect(results).toBeInstanceOf(Object);
         expect(results.total).toEqual(22);
       });
+      it('can search by object', async () => {
+        const results = await book.search({
+          query: 'Cain',
+          limit: 25,
+        });
+
+        expect(results).toBeInstanceOf(Object);
+        expect(results.total).toEqual(22);
+        expect(results.verseCount).toEqual(22);
+      });
     });
   });
 });
