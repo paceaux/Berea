@@ -214,5 +214,16 @@ describe('Model: Bible', () => {
       expect(results).toBeInstanceOf(Object);
       expect(results.total).toEqual(228);
     });
+
+    it('can search by object', async () => {
+      const results = await ASV.search({
+        query: 'Cain',
+        limit: 25,
+      });
+
+      expect(results).toBeInstanceOf(Object);
+      expect(results.total).toEqual(228);
+      expect(results.verseCount).toEqual(25);
+    });
   });
 });

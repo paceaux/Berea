@@ -203,7 +203,7 @@ class Bible extends Entity {
         params.query = searchParams;
       }
 
-      if (typeof request === 'object') {
+      if (typeof searchParams === 'object') {
         const temp = this.bibleService.constructor.getRoutesAndParamFromRequest(searchParams);
         delete temp.id;
         params = { ...params, ...temp.params };
