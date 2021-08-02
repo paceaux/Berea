@@ -1,7 +1,7 @@
 {
   "name": "bibleapi",
-  "version": "0.0.1",
-  "description": "Library for using scripture.api.bible",
+  "version": "1.0.0",
+  "description": "A promise-wrapped library and ORM for using https://scripture.api.bible",
   "main": "build/index.js",
   "scripts": {
     "lint": "eslint -f table src/**/*.js index.js",
@@ -18,10 +18,16 @@
     "url": "https://github.com/paceaux/BibleApi"
   },
   "keywords": [
-    "Library",
+    "Scripture",
     "API",
     "Bible",
-    "Scripture"
+    "Library",
+    "verses",
+    "chapters",
+    "book",
+    "holy",
+    "Christian",
+    "American Bible Society"
   ],
   "author": "Frank M. Taylor (AKA Paceaux)",
   "contributors": [

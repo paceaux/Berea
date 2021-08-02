@@ -1,6 +1,9 @@
 # BibleApi
-A Node library for [https://scripture.api.bible/](API.Bible)
-This includes a `bibleService` which is a promised-wrapped library and convenience methods for using the API, and an ORM that turns data from that API into objects with utilities methods built in.  
+A Promised-wrapped Node library and ORM for [https://scripture.api.bible/](API.Bible). 
+
+This includes a `bibleService` which is a promised-wrapped library for the API with some convenience methods. 
+
+But it **also** includes an ORM that turns data  into `Bible`, `Book`, `Chapter`, `Verse`, and `Passage` objects that have their own convenience methods and relations for easier navigation of scripture. 
 
 ## Pre-requisites
 * Node 12+
