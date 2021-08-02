@@ -47,7 +47,7 @@ describe('Model: Passage', () => {
       });
       it('has chapterIds', () => {
         expect(passage).toHaveProperty('chapterIds');
-        expect(passage.chapterIds).toEqual(expect.arrayContaining(['GEN.1', 'GEN.2', 'GEN.3', 'GEN.4']))
+        expect(passage.chapterIds).toEqual(expect.arrayContaining(['GEN.1', 'GEN.2', 'GEN.3', 'GEN.4']));
       });
       it('has verseCount', () => {
         expect(passage).toHaveProperty('verseCount');

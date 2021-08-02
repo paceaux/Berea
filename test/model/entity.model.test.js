@@ -6,7 +6,6 @@ describe('Model: Entity', () => {
       it('can return 5 values from a full id', () => {
         const idObject = Entity.parseVerseId('GEN.1.1');
 
-        console.log(idObject);
         expect(idObject).toHaveProperty('bookId', 'GEN');
         expect(idObject).toHaveProperty('chapterId', 'GEN.1');
         expect(idObject).toHaveProperty('verseId', 'GEN.1.1');
@@ -64,7 +63,6 @@ describe('Model: Entity', () => {
       it('gives chapterIds as an Array for a passage', () => {
         const idObject = Entity.parseId('GEN.1.1-GEN.2.10');
 
-        console.log(idObject);
         expect(idObject).toHaveProperty('bookId', 'GEN');
 
         expect(idObject).toHaveProperty('chapterIds', ['GEN.1', 'GEN.2']);
