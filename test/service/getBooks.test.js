@@ -1,7 +1,7 @@
-const BibleApi = require('../../src/bibleService');
+const Berea = require('../../src/bibleService');
 
 describe('getBooks', () => {
-  const api = new BibleApi('5ae573a324440896fabd2942943728a5', 1);
+  const api = new Berea('5ae573a324440896fabd2942943728a5', 1);
 
   it('can get books if the id is a string', async () => {
     const result = await api.getBooks('06125adad2d5898a-01');
@@ -18,7 +18,7 @@ describe('getBooks', () => {
 });
 
 describe('getBook', () => {
-  const api = new BibleApi('5ae573a324440896fabd2942943728a5', 1);
+  const api = new Berea('5ae573a324440896fabd2942943728a5', 1);
 
   it('gets a book when sent a single object', async () => {
     const result = await api.getBook({ id: '06125adad2d5898a-01', bookId: 'EXO' });

@@ -1,3 +1,3 @@
-const BibleApi = require('./src/index');
+const Berea = require('./src/index');
 
-module.exports = BibleApi;
+module.exports = Berea;

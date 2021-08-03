@@ -1,4 +1,4 @@
-# BibleApi
+# Berea
 A Promised-wrapped Node library and ORM for [https://scripture.api.bible/](API.Bible). 
 
 This includes a `bibleService` which is a promised-wrapped library for the API with some convenience methods. 
@@ -17,7 +17,7 @@ But it **also** includes an ORM that turns data  into `Bible`, `Book`, `Chapter`
 5. After it's created you will need the credentials
 
 # Usage
-This is thoroughly documented via JSDoc and a [Github Wiki](https://github.com/paceaux/BibleApi/wiki)
+This is thoroughly documented via JSDoc and a [Github Wiki](https://github.com/paceaux/Berea/wiki)
 
 Using the API and this library amounts to three steps:
 
@@ -34,7 +34,7 @@ You may want multiple services if you plan on using different versions of the ap
 
 ### Basic Example
 ```
-const {BibleService} = require('bibleapi');
+const {BibleService} = require('berea');
 
 const service = new BibleService('someLongToken');
 ```
@@ -43,7 +43,7 @@ const service = new BibleService('someLongToken');
 As the API itself is version controlled, the library is too. This is an optional second parameter:
 
 ```
-const {BibleService} = require('bibleapi');
+const {BibleService} = require('berea');
 
 const service = new BibleService('someLongToken', 1);
 ```
@@ -53,13 +53,13 @@ const service = new BibleService('someLongToken', 1);
 The Bible API itself offers text and audio. As you may want one over the other, this is an optional third parameter. The options are `text` or `audio`. 
 
 ```
-const {BibleService} = require('bibleapi');
+const {BibleService} = require('berea');
 
 const service = new BibleService('someLongToken', 1, 'audio');
 ```
 
 ## Setting options in requests
-All of the [request options are documented](https://github.com/paceaux/BibleApi/wiki/Request-Parameters). One notable difference between how this library works is that _options can be camelCased_.
+All of the [request options are documented](https://github.com/paceaux/Berea/wiki/Request-Parameters). One notable difference between how this library works is that _options can be camelCased_.
 
 While the [API](https://scripture.api.bible/livedocs#/) will require `content-type` if you want to set options, you can send `contentType`. 
 
@@ -69,7 +69,7 @@ Look in `src/constants/requestParameters.js` for all of the aliases. `RequestPar
 Before getting verses, chapters, or passages, you need a `bibleId`. The only way to know _that_ is to look at all of the Bibles, first. 
 
 ### Get all Bibles
-* [Request Options](https://github.com/paceaux/BibleApi/wiki/Request-Parameters#BiblesRequestParam)  ( an array)
+* [Request Options](https://github.com/paceaux/Berea/wiki/Request-Parameters#BiblesRequestParam)  ( an array)
 
 ```
 async function doThings() {
@@ -79,7 +79,7 @@ async function doThings() {
 ```
 
 ### Get Bibles with options
-* [Response](https://github.com/paceaux/BibleApi/wiki/Response-Types#BibleResponse) (an array)
+* [Response](https://github.com/paceaux/Berea/wiki/Response-Types#BibleResponse) (an array)
 
 ```
 async function doThings() {
@@ -91,7 +91,7 @@ async function doThings() {
 ```
 
 ### Get One Bible
-* [Response](https://github.com/paceaux/BibleApi/wiki/Response-Types#BibleResponse)
+* [Response](https://github.com/paceaux/Berea/wiki/Response-Types#BibleResponse)
 * Request: only a string
 
 Once you've found a `bibleId`, you can get some information on it. 
@@ -113,8 +113,8 @@ e.g.
 
 
 ### Get all books from a Bible (no options)
-* [Request Options](https://github.com/paceaux/BibleApi/wiki/Request-Parameters#booksrequestparam)
-* [Response](https://github.com/paceaux/BibleApi/wiki/Response-Types#bookresponse) (an array)
+* [Request Options](https://github.com/paceaux/Berea/wiki/Request-Parameters#booksrequestparam)
+* [Response](https://github.com/paceaux/Berea/wiki/Response-Types#bookresponse) (an array)
 * A Single parameter can be passed, an object, containing `id` for `bibleId` with additional options. 
 Here, all that's passed is the `bibleId` as a string.
 ```
@@ -125,8 +125,8 @@ async function doThings() {
 ```
 
 ### Get all books from a Bible (with options)
-* [Request Options](https://github.com/paceaux/BibleApi/wiki/Request-Parameters#booksrequestparam)
-* [Response](https://github.com/paceaux/BibleApi/wiki/Response-Types#bookresponse) (an array)
+* [Request Options](https://github.com/paceaux/Berea/wiki/Request-Parameters#booksrequestparam)
+* [Response](https://github.com/paceaux/Berea/wiki/Response-Types#bookresponse) (an array)
 * A Single parameter can be passed, an object, containing `id` for `bibleId` with additional options. 
 `includeChapters` is an option that's passed in. 
 
@@ -154,8 +154,8 @@ e.g.
 
 
 ### Get all chapters from a book
-* [Request Options](https://github.com/paceaux/BibleApi/wiki/Request-Parameters#chaptersrequestparam)
-* [Response](https://github.com/paceaux/BibleApi/wiki/Response-Types#ChapterSummaryResponse) (an array)
+* [Request Options](https://github.com/paceaux/Berea/wiki/Request-Parameters#chaptersrequestparam)
+* [Response](https://github.com/paceaux/Berea/wiki/Response-Types#ChapterSummaryResponse) (an array)
 * A Single parameter can be passed, an object, containing `id` for `bibleId` and `bookId` with additional options. 
 
 
@@ -167,8 +167,8 @@ async function doThings() {
 
 
 ### Get one chapter
-* [Request Options](https://github.com/paceaux/BibleApi/wiki/Request-Parameters#chaptersrequestparam)
-* [Response](https://github.com/paceaux/BibleApi/wiki/Response-Types#ChapterResponse)
+* [Request Options](https://github.com/paceaux/Berea/wiki/Request-Parameters#chaptersrequestparam)
+* [Response](https://github.com/paceaux/Berea/wiki/Response-Types#ChapterResponse)
 * A Single parameter can be passed, an object, containing `id` for `bibleId` and `chapterId` with additional options. 
 
 
@@ -190,7 +190,7 @@ e.g.
 * Mark 8:8 => <samp>MAR.8.8</samp>
 
 ### Get all verses from a chapter
-* [Response](https://github.com/paceaux/BibleApi/wiki/Response-Types#versesummaryresponse) (as array)
+* [Response](https://github.com/paceaux/Berea/wiki/Response-Types#versesummaryresponse) (as array)
 
 Note that **this will not give you the content of the verses**. It may be useful, however, in getting `verseId`s
 
@@ -201,8 +201,8 @@ async function doThings(){
 ```
 
 ### Get one verse
-* [Request Options](https://github.com/paceaux/BibleApi/wiki/Request-Parameters#VerseRequestParam)
-* [Response](https://github.com/paceaux/BibleApi/wiki/Response-Types#verseresponse)
+* [Request Options](https://github.com/paceaux/Berea/wiki/Request-Parameters#VerseRequestParam)
+* [Response](https://github.com/paceaux/Berea/wiki/Response-Types#verseresponse)
 * A Single parameter can be passed, an object, containing `id` for `bibleId` and `verseId` with additional options. 
 
 
@@ -214,8 +214,8 @@ async function doThings(){
 ```
 
 ### Get Range of verses
-* [Request Options](https://github.com/paceaux/BibleApi/wiki/Request-Parameters#PassageRequestParam)
-* [Response](https://github.com/paceaux/BibleApi/wiki/Response-Types#passageresponse)
+* [Request Options](https://github.com/paceaux/Berea/wiki/Request-Parameters#PassageRequestParam)
+* [Response](https://github.com/paceaux/Berea/wiki/Response-Types#passageresponse)
 
 Note: This is an alias for `getPassage()`
 
@@ -239,8 +239,8 @@ e.g.
 
 
 ### Get one passage
-* [Request Options](https://github.com/paceaux/BibleApi/wiki/Request-Parameters#PassageRequestParam)
-* [Response](https://github.com/paceaux/BibleApi/wiki/Response-Types#passageresponse)
+* [Request Options](https://github.com/paceaux/Berea/wiki/Request-Parameters#PassageRequestParam)
+* [Response](https://github.com/paceaux/Berea/wiki/Response-Types#passageresponse)
 * A Single parameter can be passed, an object, containing `id` for `bibleId` and `passageId` with additional options. 
 
 

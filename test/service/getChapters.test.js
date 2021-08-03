@@ -1,7 +1,7 @@
-const BibleApi = require('../../src/bibleService');
+const Berea = require('../../src/bibleService');
 
 describe('getChapters', () => {
-  const api = new BibleApi('5ae573a324440896fabd2942943728a5', 1);
+  const api = new Berea('5ae573a324440896fabd2942943728a5', 1);
 
   describe('getChaptersFromBook', () => {
     it('gets chapters when sent two strings', async () => {

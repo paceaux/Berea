@@ -1,7 +1,7 @@
-const BibleApi = require('../../src/bibleService');
+const Berea = require('../../src/bibleService');
 
 describe('getBibles', () => {
-  const api = new BibleApi('5ae573a324440896fabd2942943728a5', 1);
+  const api = new Berea('5ae573a324440896fabd2942943728a5', 1);
 
   it('it gets a hugeass list of bibles', async () => {
     const result = await api.getBibles();
@@ -30,7 +30,7 @@ describe('getBibles', () => {
   });
 });
 describe('getBibleById', () => {
-  const api = new BibleApi('5ae573a324440896fabd2942943728a5', 1);
+  const api = new Berea('5ae573a324440896fabd2942943728a5', 1);
 
   it('can get by an Id', async () => {
     const result = await api.getBible('06125adad2d5898a-01');
@@ -47,7 +47,7 @@ describe('getBibleById', () => {
   });
 });
 describe('getBibleAudio', () => {
-  const api = new BibleApi('5ae573a324440896fabd2942943728a5', 1, 'audio');
+  const api = new Berea('5ae573a324440896fabd2942943728a5', 1, 'audio');
 
   it('it gets a list of audio bibles', async () => {
     const result = await api.getBibles();
