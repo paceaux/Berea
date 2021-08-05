@@ -1,6 +1,6 @@
 {
   "name": "berea",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A promise-wrapped library and ORM for using https://scripture.api.bible",
   "main": "build/index.js",
   "scripts": {
@@ -10,8 +10,8 @@
     "pretest": "npm run --silent lint",
     "test": "npm run --silent tests-only",
     "build": "babel src --out-dir build",
-    "prepare": "npm run build",
-    "clean": "rm -rf build",
+    "prepare": "npm run clean && npm run build",
+    "clean": "rimraf .cache build",
     "doc": "node_modules/.bin/jsdoc -c jsdoc.config.json --verbose"
   },
   "repository": {
@@ -59,7 +59,8 @@
     "eslint-plugin-jsdoc": "^35.4.0",
     "jest": "^27.0.1",
     "jsdoc-tsimport-plugin": "^1.0.5",
-    "minami": "^1.2.3"
+    "minami": "^1.2.3",
+    "rimraf": "^3.0.2"
   },
   "engines": {
     "node": ">= 8"
