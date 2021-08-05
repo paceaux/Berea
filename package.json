@@ -10,6 +10,7 @@
     "pretest": "npm run --silent lint",
     "test": "npm run --silent tests-only",
     "build": "babel src --out-dir build",
+    "prepare": "npm run build",
     "clean": "rm -rf build",
     "doc": "node_modules/.bin/jsdoc -c jsdoc.config.json --verbose"
   },
